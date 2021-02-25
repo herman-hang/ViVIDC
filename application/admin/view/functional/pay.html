@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>支付配置</title>
+    {include file='public/style'}
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 支付宝官方接口</strong></div>
+    <div class="body-content">
+    <form method="post" class="form-x" action="" id="alipay">
+            <div class="form-group">
+                <div class="label">
+                    <label>支付宝账号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="alipay_account" value="{$fun.alipay_account}" placeholder="一般为邮箱"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>支付宝PID：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="alipay_pid" value="{$fun.alipay_pid}" placeholder="PID合作身份ID" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>支付宝KEY：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="alipay_key" value="{$fun.alipay_key}" placeholder="支付宝安全校验码"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 微信官方接口</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" action="" id="wxpay">
+            <div class="form-group">
+                <div class="label">
+                    <label>微信商户号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="wxpay_mchid" value="{$fun.wxpay_mchid}" placeholder="微信支付接口mchid"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>微信商户KEY：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="wxpay_kye" value="{$fun.wxpay_kye}" placeholder="微信支付商户API KEY" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>公众号AppID：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="wxpay_appid" value="{$fun.wxpay_appid}" placeholder="绑定的公众号APPID"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>公众号AppSecret：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="wxpay_secret" value="{$fun.wxpay_secret}" placeholder="公众号AppSecret"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 支付宝当面付</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" action="" id="alipayf2f">
+            <div class="form-group">
+                <div class="label">
+                    <label>当面付AppID：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="alipayf2f_private_id" value="{$fun.alipayf2f_private_id}" placeholder="应用ID"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>当面付公钥：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="alipayf2f_public_key" value="{$fun.alipayf2f_public_key}" placeholder="公钥"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>当面付私钥：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="alipayf2f_private_key" value="{$fun.alipayf2f_private_key}" placeholder="私钥" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> QQ钱包支付</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" action="" id="qqpay">
+            <div class="form-group">
+                <div class="label">
+                    <label>QQ商户号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="qqpay_mchid" value="{$fun.qqpay_mchid}" placeholder="mchid商户号"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>QQ商户KEY：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="qqpay_key" value="{$fun.qqpay_key}" placeholder="QQ商户KEY"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 易支付</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" action="" id="epay">
+            <div class="form-group">
+                <div class="label">
+                    <label>易支付地址：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="epay_url" value="{$fun.epay_url}" placeholder="易支付接口地址"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>易支付商户号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="epay_appid" value="{$fun.epay_appid}" placeholder="易支付商户号"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>易支付KEY：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="epay_key" value="{$fun.epay_key}" placeholder="易支付KEY"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div style="margin-left: 15px;">
+    <div class="form-group">
+        <div class="field" style="margin-left: 170px;">
+            <button class="button bg-main icon-check-square-o" id="submit" type="button"> 提交</button>
+        </div>
+    </div>
+</div>
+
+{include file='public/footer'}
+<script>
+    $("#submit").click(function (){
+        var alipay = $("#alipay").serializeArray();
+        var wxpay = $("#wxpay").serializeArray();
+        var alipayf2f = $("#alipayf2f").serializeArray();
+        var qqpay = $("#qqpay").serializeArray();
+        var epay = $("#epay").serializeArray();
+        //表单合并
+        data = alipay.concat(wxpay).concat(alipayf2f).concat(qqpay).concat(epay);
+       $.ajax({
+            type:"post",
+            dataType:"json",
+            url:"{:url('Functional/pay')}",
+            data:data,
+            success:function (data){
+                if (data.code === 1){
+                    toastr.success(data.msg);
+                    setTimeout(function (){
+                        location.href = data.url;
+                    },2000);
+                }else{
+                    if (data.code === 0){
+                        toastr.error(data.msg);
+                    }else{
+                        toastr.error(data.msg);
+                    }
+                }
+            }
+        });
+    });
+</script>
+</body></html>

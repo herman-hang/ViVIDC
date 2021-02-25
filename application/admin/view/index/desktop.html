@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>我的桌面</title>
+	<link rel="stylesheet" href="/static/admin/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/static/admin/font/bootstrap-icons.css">
+	{include file='public/style'}
+    <link rel="stylesheet" href="/static/admin/css/azzara.min.css">
+    <link rel="stylesheet" href="/static/admin/css/fonts.css">
+</head>
+<body>
+<div class="panel admin-panel" >
+  <div class="body-content">
+      <div class="row" style="margin-right: 0px;margin-left: 0px;">
+        <div class="col-sm-6 col-md-3">
+            <div class="card card-stats card-round">
+                <div class="card-body ">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-primary bubble-shadow-small" style="background: #36a3f7;">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ml-3 ml-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">用户总数</p>
+                                <h4 class="card-title">1,294</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-info bubble-shadow-small" style="background: #00aaee;">
+                                <i class="far fa-newspaper"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ml-3 ml-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">服务商</p>
+                                <h4 class="card-title">1303</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-success bubble-shadow-small" style="background: #22cc77">
+                                <i class="far fa-chart-bar"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ml-3 ml-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">销售总额</p>
+                                <h4 class="card-title">￥ 1,345</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-secondary bubble-shadow-small" style="background: #716aca;">
+                                <i class="far fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ml-3 ml-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">订单量</p>
+                                <h4 class="card-title">576</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	<div class="row" style="margin-right: 0px;margin-left: 0px;">
+						<div class="col-md-8">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-head-row">
+										<div class="card-title">用户统计</div>
+									</div>
+								</div>
+								<div id="user_data" style="width: 1100px;height:528px;"></div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="card card-secondary">
+								<div class="card-header">
+									<div class="card-title">每日销售额</div>
+									<div class="card-category">3月25日-4月2日</div>
+								</div>
+								<div class="card-body pb-0">
+									<div class="mb-1 mt-2">
+										<h1>￥4,578.58</h1>
+									</div>
+									<div id="money_data" style="width: 500px;height:250px;"></div>
+								</div>
+							</div>
+							<div class="card card-info bg-info-gradient">
+								<div class="card-body">
+									<h4 class="mb-1 fw-bold">任务进度</h4>
+									<div id="task-complete" class="chart-circle mt-4 mb-3"><div class="circles-wrp" style="position: relative; display: inline-block;"><svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><path fill="transparent" stroke="#36a3f7" stroke-width="5" d="M 49.99032552282448 2.500000985215891 A 47.5 47.5 0 1 1 49.9340234529416 2.5000458200722235 Z" class="circles-maxValueStroke"></path><path fill="transparent" stroke="#fff" stroke-width="5" d="M 49.99032552282448 2.500000985215891 A 47.5 47.5 0 1 1 4.81379135029583 35.355664990673006 " class="circles-valueStroke"></path></svg><div class="circles-text" style="position: absolute; top: 0px; left: 0px; text-align: center; width: 100%; font-size: 35px; height: 100px; line-height: 100px;">80%</div></div></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row" style="margin-right: 0px;margin-left: 0px;">
+						<div class="col-md-4">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-title">热销产品</div>
+								</div>
+								<div class="card-body pb-0">
+									<div class="d-flex">
+										<div class="avatar">
+											<img src="../assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
+										</div>
+										<div class="flex-1 pt-1 ml-2">
+											<h5 class="fw-bold mb-1">CSS</h5>
+											<small class="text-muted">Cascading Style Sheets</small>
+										</div>
+										<div class="d-flex ml-auto align-items-center">
+											<h3 class="text-info fw-bold">+$17</h3>
+										</div>
+									</div>
+									<div class="separator-dashed"></div>
+									<div class="d-flex">
+										<div class="avatar">
+											<img src="../assets/img/logoproduct2.svg" alt="..." class="avatar-img rounded-circle">
+										</div>
+										<div class="flex-1 pt-1 ml-2">
+											<h5 class="fw-bold mb-1">J.CO Donuts</h5>
+											<small class="text-muted">The Best Donuts</small>
+										</div>
+										<div class="d-flex ml-auto align-items-center">
+											<h3 class="text-info fw-bold">+$300</h3>
+										</div>
+									</div>
+									<div class="separator-dashed"></div>
+									<div class="d-flex">
+										<div class="avatar">
+											<img src="../assets/img/logoproduct3.svg" alt="..." class="avatar-img rounded-circle">
+										</div>
+										<div class="flex-1 pt-1 ml-2">
+											<h5 class="fw-bold mb-1">Ready Pro</h5>
+											<small class="text-muted">Bootstrap 4 Admin Dashboard</small>
+										</div>
+										<div class="d-flex ml-auto align-items-center">
+											<h3 class="text-info fw-bold">+$350</h3>
+										</div>
+									</div>
+									<div class="separator-dashed"></div>
+									<div class="pull-in"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+										<canvas id="topProductsChart" width="513" height="150" class="chartjs-render-monitor" style="display: block; width: 513px; height: 150px;"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="card">
+								<div class="card-body">
+									<div class="card-title fw-mediumbold">新注册用户</div>
+									<div class="card-list">
+										<div class="item-list">
+											<div class="avatar">
+												<img src="../assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
+											</div>
+											<div class="info-user ml-3">
+												<div class="username">Jimmy Denis</div>
+												<div class="status">Graphic Designer</div>
+											</div>
+											<button class="btn btn-icon btn-primary btn-round btn-sm">
+												<i class="fa fa-plus"></i>
+											</button>
+										</div>
+										<div class="item-list">
+											<div class="avatar">
+												<img src="../assets/img/chadengle.jpg" alt="..." class="avatar-img rounded-circle">
+											</div>
+											<div class="info-user ml-3">
+												<div class="username">Chad</div>
+												<div class="status">CEO Zeleaf</div>
+											</div>
+											<button class="btn btn-icon btn-primary btn-round btn-sm">
+												<i class="fa fa-plus"></i>
+											</button>
+										</div>
+										<div class="item-list">
+											<div class="avatar">
+												<img src="../assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
+											</div>
+											<div class="info-user ml-3">
+												<div class="username">Talha</div>
+												<div class="status">Front End Designer</div>
+											</div>
+											<button class="btn btn-icon btn-primary btn-round btn-sm">
+												<i class="fa fa-plus"></i>
+											</button>
+										</div>
+										<div class="item-list">
+											<div class="avatar">
+												<img src="../assets/img/mlane.jpg" alt="..." class="avatar-img rounded-circle">
+											</div>
+											<div class="info-user ml-3">
+												<div class="username">John Doe</div>
+												<div class="status">Back End Developer</div>
+											</div>
+											<button class="btn btn-icon btn-primary btn-round btn-sm">
+												<i class="fa fa-plus"></i>
+											</button>
+										</div>
+										<div class="item-list">
+											<div class="avatar">
+												<img src="../assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
+											</div>
+											<div class="info-user ml-3">
+												<div class="username">Talha</div>
+												<div class="status">Front End Designer</div>
+											</div>
+											<button class="btn btn-icon btn-primary btn-round btn-sm">
+												<i class="fa fa-plus"></i>
+											</button>
+										</div>
+										<div class="item-list">
+											<div class="avatar">
+												<img src="../assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
+											</div>
+											<div class="info-user ml-3">
+												<div class="username">Jimmy Denis</div>
+												<div class="status">Graphic Designer</div>
+											</div>
+											<button class="btn btn-icon btn-primary btn-round btn-sm">
+												<i class="fa fa-plus"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="card card-primary bg-primary-gradient bubble-shadow">
+								<div class="card-body">
+									<h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">在线用户</h4>
+									<h1 class="mb-4 fw-bold">17</h1>
+									<h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">每分钟浏览量</h4>
+									<div id="activeUsersChart"><canvas width="294" height="100" style="display: inline-block; width: 294px; height: 100px; vertical-align: top;"></canvas></div>
+									<h4 class="mt-5 pb-3 mb-0 fw-bold">热门活动</h4>
+									<ul class="list-unstyled">
+										<li class="d-flex justify-content-between pb-1 pt-1"><small>/product/readypro/index.html</small> <span>7</span></li>
+										<li class="d-flex justify-content-between pb-1 pt-1"><small>/product/azzara/demo.html</small> <span>10</span></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="row" style="margin-right: 0px;margin-left: 0px;">
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-title">节日活动</div>
+								</div>
+								<div class="card-body">
+									<ol class="activity-feed">
+										<li class="feed-item feed-item-secondary">
+											<time class="date" datetime="9-25">Sep 25</time>
+											<span class="text">Responded to need <a href="#">"Volunteer opportunity"</a></span>
+										</li>
+										<li class="feed-item feed-item-success">
+											<time class="date" datetime="9-24">Sep 24</time>
+											<span class="text">Added an interest <a href="#">"Volunteer Activities"</a></span>
+										</li>
+										<li class="feed-item feed-item-info">
+											<time class="date" datetime="9-23">Sep 23</time>
+											<span class="text">Joined the group <a href="single-group.php">"Boardsmanship Forum"</a></span>
+										</li>
+										<li class="feed-item feed-item-warning">
+											<time class="date" datetime="9-21">Sep 21</time>
+											<span class="text">Responded to need <a href="#">"In-Kind Opportunity"</a></span>
+										</li>
+										<li class="feed-item feed-item-danger">
+											<time class="date" datetime="9-18">Sep 18</time>
+											<span class="text">Created need <a href="#">"Volunteer Opportunity"</a></span>
+										</li>
+										<li class="feed-item">
+											<time class="date" datetime="9-17">Sep 17</time>
+											<span class="text">Attending the event <a href="single-event.php">"Some New Event"</a></span>
+										</li>
+									</ol>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-head-row">
+										<div class="card-title">用户投诉</div>
+										<div class="card-tools">
+											<ul class="nav nav-pills nav-secondary nav-pills-no-bd nav-sm" id="pills-tab" role="tablist">
+												<li class="nav-item">
+													<a class="nav-link" id="pills-today" data-toggle="pill" href="#pills-today" role="tab" aria-selected="true">今天</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link active" id="pills-week" data-toggle="pill" href="#pills-week" role="tab" aria-selected="false">周</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" id="pills-month" data-toggle="pill" href="#pills-month" role="tab" aria-selected="false">月</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="d-flex">
+										<div class="avatar avatar-online">
+											<span class="avatar-title rounded-circle border border-white bg-info">J</span>
+										</div>
+										<div class="flex-1 ml-3 pt-1">
+											<h5 class="text-uppercase fw-bold mb-1">Joko Subianto <span class="text-warning pl-3">pending</span></h5>
+											<span class="text-muted">I am facing some trouble with my viewport. When i start my</span>
+										</div>
+										<div class="float-right pt-1">
+											<small class="text-muted">8:40 PM</small>
+										</div>
+									</div>
+									<div class="separator-dashed"></div>
+									<div class="d-flex">
+										<div class="avatar avatar-offline">
+											<span class="avatar-title rounded-circle border border-white bg-secondary">P</span>
+										</div>
+										<div class="flex-1 ml-3 pt-1">
+											<h5 class="text-uppercase fw-bold mb-1">Prabowo Widodo <span class="text-success pl-3">open</span></h5>
+											<span class="text-muted">I have some query regarding the license issue.</span>
+										</div>
+										<div class="float-right pt-1">
+											<small class="text-muted">1 Day Ago</small>
+										</div>
+									</div>
+									<div class="separator-dashed"></div>
+									<div class="d-flex">
+										<div class="avatar avatar-away">
+											<span class="avatar-title rounded-circle border border-white bg-danger">L</span>
+										</div>
+										<div class="flex-1 ml-3 pt-1">
+											<h5 class="text-uppercase fw-bold mb-1">Lee Chong Wei <span class="text-muted pl-3">closed</span></h5>
+											<span class="text-muted">Is there any update plan for RTL version near future?</span>
+										</div>
+										<div class="float-right pt-1">
+											<small class="text-muted">2 Days Ago</small>
+										</div>
+									</div>
+									<div class="separator-dashed"></div>
+									<div class="d-flex">
+										<div class="avatar avatar-offline">
+											<span class="avatar-title rounded-circle border border-white bg-secondary">P</span>
+										</div>
+										<div class="flex-1 ml-3 pt-1">
+											<h5 class="text-uppercase fw-bold mb-1">Peter Parker <span class="text-success pl-3">open</span></h5>
+											<span class="text-muted">I have some query regarding the license issue.</span>
+										</div>
+										<div class="float-right pt-1">
+											<small class="text-muted">2 Day Ago</small>
+										</div>
+									</div>
+									<div class="separator-dashed"></div>
+									<div class="d-flex">
+										<div class="avatar avatar-away">
+											<span class="avatar-title rounded-circle border border-white bg-danger">L</span>
+										</div>
+										<div class="flex-1 ml-3 pt-1">
+											<h5 class="text-uppercase fw-bold mb-1">Logan Paul <span class="text-muted pl-3">closed</span></h5>
+											<span class="text-muted">Is there any update plan for RTL version near future?</span>
+										</div>
+										<div class="float-right pt-1">
+											<small class="text-muted">2 Days Ago</small>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+</div>
+</div>
+<footer class="footer">
+	<p>Copyright ©2020 ViV IDC财务管理系统 All Rights Reserved.</p>
+</footer>
+<style>
+	/*底部样式开始*/
+	.footer {
+		border-top: 1px solid #e8e8e8;
+		padding: 10px 0;
+		font-family: tahoma, Arial;
+		font-size: 12px;
+		color: #999;
+		line-height: 22px;
+		text-align: center;
+	}
+	/*底部样式结束*/
+</style>
+{inlcude file='public/footer'}
+<script src="/static/admin/js/echarts/echarts.min.js"></script>
+
+<!--用户数据统计开始-->
+<script type="text/javascript">
+	// 基于准备好的dom，初始化echarts实例
+	var myChart = echarts.init(document.getElementById('user_data'));
+
+	// 指定图表的配置项和数据
+	option = {
+		/*title: {
+			text: '折线图堆叠'
+		},*/
+		tooltip: {
+			trigger: 'axis'
+		},
+		legend: {
+			data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+		},
+		grid: {
+			left: '3%',
+			right: '4%',
+			bottom: '3%',
+			containLabel: true
+		},
+		toolbox: {
+			feature: {
+				saveAsImage: {}
+			}
+		},
+		xAxis: {
+			type: 'category',
+			boundaryGap: false,
+			data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+		},
+		yAxis: {
+			type: 'value'
+		},
+		series: [
+			{
+				name: '邮件营销',
+				type: 'line',
+				stack: '总量',
+				data: [120, 132, 101, 134, 90, 230, 210]
+			},
+			{
+				name: '联盟广告',
+				type: 'line',
+				stack: '总量',
+				data: [220, 182, 191, 234, 290, 330, 310]
+			},
+			{
+				name: '视频广告',
+				type: 'line',
+				stack: '总量',
+				data: [150, 232, 201, 154, 190, 330, 410]
+			},
+			{
+				name: '直接访问',
+				type: 'line',
+				stack: '总量',
+				data: [320, 332, 301, 334, 390, 330, 320]
+			},
+			{
+				name: '搜索引擎',
+				type: 'line',
+				stack: '总量',
+				data: [820, 932, 901, 934, 1290, 1330, 1320]
+			}
+		]
+	};
+
+	// 使用刚指定的配置项和数据显示图表。
+	myChart.setOption(option);
+</script>
+<!--用户数据统计结束-->
+
+
+<!--每日销售额开始-->
+<script>
+	var myChart = echarts.init(document.getElementById('money_data'));
+
+	option = {
+		color: ['#a19ce2'],
+		tooltip: {
+			trigger: 'axis'
+		},
+		xAxis: {
+			type: 'category',
+			boundaryGap: false,
+			data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+			axisLabel: {
+				textStyle: {
+					color: '#fff',
+					fontSize:'16'
+				},
+			},
+			axisLine:{
+				lineStyle:{
+					color:'#fff',
+				}
+			},
+			axisTick: {
+				show: false
+			},
+		},
+		yAxis: {
+			type: 'value',
+			splitLine: {show: false},
+			axisLabel: {
+				textStyle: {
+					color: '#fff',
+					fontSize:'16'
+				},
+			},
+		},
+		series: [{
+			data: [820, 932, 901, 934, 1290, 1330, 1320],
+			type: 'line',
+			areaStyle: {}
+		}]
+	};
+	// 使用刚指定的配置项和数据显示图表。
+	myChart.setOption(option);
+</script>
+<!--每日销售额结束-->
+
+
+</body>
+</html>

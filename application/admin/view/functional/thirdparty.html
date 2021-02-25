@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>第三方登录</title>
+    {include file='public/style'}
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 微信登录接入配置</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" action="" id="wx">
+            <div class="form-group">
+                <div class="label">
+                    <label>微信appid：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="wx_appid" value="{$thirdparty.wx_appid}" placeholder="微信appid"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>微信secret：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="wx_secret" value="{$thirdparty.wx_secret}" placeholder="微信secret" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> QQ登录接入配置</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" action="" id="qq">
+            <div class="form-group">
+                <div class="label">
+                    <label>QQ appid：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="qq_appid" value="{$thirdparty.qq_appid}" placeholder="QQ appid"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>QQ secret：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="qq_secret" value="{$thirdparty.qq_secret}" placeholder="QQ secret"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div style="margin-left: 15px;">
+    <div class="form-group">
+        <div class="field" style="margin-left: 170px;">
+            <button class="button bg-main icon-check-square-o" id="submit" type="button"> 提交</button>
+        </div>
+    </div>
+</div>
+
+{include file='public/footer'}
+<script>
+    $("#submit").click(function (){
+        var wx = $("#wx").serializeArray();
+        var qq = $("#qq").serializeArray();
+        //表单合并
+        data = wx.concat(qq);
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            url:"{:url('Functional/thirdparty')}",
+            data:data,
+            success:function (data){
+                if (data.code === 1){
+                    toastr.success(data.msg);
+                    setTimeout(function (){
+                        location.href = data.url;
+                    },2000);
+                }else{
+                    if (data.code === 0){
+                        toastr.error(data.msg);
+                    }else{
+                        toastr.error(data.msg);
+                    }
+                }
+            }
+        });
+    });
+</script>
+</body></html>

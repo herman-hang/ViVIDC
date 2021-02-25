@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>系统信息</title>
+    {include file='public/style'}
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 系统信息</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" action="" id="form">
+            <div class="form-group">
+                <div class="label">
+                    <label>网站名称：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="name" value="{$system.name}" placeholder="一般不超过20字符" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>网站标题：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="title" value="{$system.title}" placeholder="一般不超过50字符"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>网站描述：</label>
+                </div>
+                <div class="field">
+                    <textarea class="input" name="description" placeholder="一般不超过200字符">{$system.description}</textarea>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>网站关键字：</label>
+                </div>
+                <div class="field">
+                    <textarea class="input" name="keywords" style="height:80px" placeholder="一般不超过100字符">{$system.keywords}</textarea>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>网站LOGO：</label>
+                </div>
+                <div class="field">
+                    <input type="text" id="logo" name="logo" class="input tips" placeholder="点击右边按钮上传LOGO" style="width:25%; float:left;" value="{$system.logo}" data-toggle="hover" data-place="right" data-image="{$system.logo}"  />
+                    <input type="button" name="file" class="button bg-blue margin-left" id="image1" value="+ 浏览上传" >
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>网站ICO图标：</label>
+                </div>
+                <div class="field">
+                    <input type="text" id="ico" name="ico" class="input tips" placeholder="点击右边按钮上传ICO图标" style="width:25%; float:left;" value="{$system.ico}" data-toggle="hover" data-place="right" data-image="{$system.ico}"  />
+                    <input type="button" name="file" class="button bg-blue margin-left" id="image2" value="+ 浏览上传" >
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>官方公众号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" id="tuomaogz" name="tuomaogz" class="input tips" placeholder="点击右边按钮上传公众号二维码" style="width:25%; float:left;" value="{$system.tuomaogz}" data-toggle="hover" data-place="right" data-image="{$system.tuomaogz}"  />
+                    <input type="button" name="file" class="button bg-blue margin-left" id="image3" value="+ 浏览上传" >
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>邮箱：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="email" value="{$system.email}" placeholder="一般为QQ邮箱"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>QQ：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="qq" value="{$system.qq}" placeholder="一般不超过11个字符"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>QQ群：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="usergroup" value="{$system.usergroup}" placeholder="一般不超过9个字符"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label>电话：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="phone" value="{$system.phone}" placeholder="400-88888"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>网站开关：</label>
+                </div>
+                <div class="field">
+                    <div class="button-group radio">
+                        {if condition="$system.is_website eq 1"}
+                        <label class="button active">
+                            <span class="icon icon-check text-green"></span>
+                            <input name="is_website" value="1" type="radio" checked="checked">开
+                        </label>
+                        <label class="button"><span class="icon icon-times"></span>
+                            <input name="is_website" value="0" type="radio">关
+                        </label>
+                        {else /}
+                        <label class="button">
+                            <span class="icon icon-check text-green"></span>
+                            <input name="is_website" value="1" type="radio">开
+                        </label>
+                        <label class="button active"><span class="icon icon-times"></span>
+                            <input name="is_website" value="0" type="radio" checked="checked">关
+                        </label>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>备案号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="record" value="{$system.record}" placeholder="京ICP备88888888号"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>地址：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="address" value="{$system.address}" placeholder="公司详细地址"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>底部版权声明：</label>
+                </div>
+                <div class="field">
+                    <textarea name="copyright" class="input" placeholder="Copyright ©2020 ViV IDC财务管理系统 All Rights Reserved.">{$system.copyright}</textarea>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>底部统计代码：</label>
+                </div>
+                <div class="field">
+                    <textarea name="statistical" class="input" style="height:120px;" placeholder="请从第三方应用获取填写">{$system.statistical}</textarea>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-check-square-o" type="button" id="submit"> 提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include file='public/footer'}
+<script src="/static/layui/layui.js"></script>
+<script>
+    $("#submit").click(function (){
+        $.ajax({
+            url:"{:url('System/system')}",
+            type:"post",
+            dataType:"json",
+            data:$("#form").serialize(),
+            success:function (data){
+                if (data.code === 1){
+                    toastr.success(data.msg);
+                    setTimeout(function() {
+                        location.href = data.url;
+                    }, 2000)
+                }else{
+                    if (data.code === 0){
+                        toastr.error(data.msg);
+                    }else{
+                        toastr.error(data.msg);
+                    }
+                }
+            }
+        });
+    });
+
+    /*上传网站LOGO开始*/
+    layui.use('upload', function(){
+        var upload = layui.upload;
+        //执行上传图片，并获取图片信息
+        var uploadInst = upload.render({
+            elem: '#image1' //绑定元素
+            ,exts: 'jpg|png|gif|bmp|jpeg|ico'
+            ,url: "{:url('Base/upload')}" //上传接口
+            ,done: function(data){
+                //上传完毕回调
+                if(data.code === 1){
+                    $("#logo").val(data.photo);
+                    toastr.success(data.msg);
+                }else{
+                    toastr.error(data.msg);
+                }
+            }
+            ,error: function(data){
+                //请求异常回调
+                toastr.error(data.msg);
+            }
+        });
+    });
+
+    /*上传网站ICO开始*/
+    layui.use('upload', function(){
+        var upload = layui.upload;
+        //执行上传图片，并获取图片信息
+        var uploadInst = upload.render({
+            elem: '#image2' //绑定元素
+            ,exts: 'jpg|png|gif|bmp|jpeg|ico'
+            ,url: "{:url('Base/upload')}" //上传接口
+            ,data:{name:'ico'}
+            ,done: function(data){
+                //上传完毕回调
+                if(data.code === 1){
+                    $("#ico").val(data.photo);
+                    toastr.success(data.msg);
+                }else{
+                    toastr.error(data.msg);
+                }
+            }
+            ,error: function(data){
+                //请求异常回调
+                toastr.error(data.msg);
+            }
+        });
+    });
+
+    /*上传公众号二维码开始*/
+    layui.use('upload', function(){
+        var upload = layui.upload;
+        //执行上传图片，并获取图片信息
+        var uploadInst = upload.render({
+            elem: '#image3' //绑定元素
+            ,exts: 'jpg|png|gif|bmp|jpeg|ico'
+            ,url: "{:url('Base/upload')}" //上传接口
+            ,data:{name:'tuomaogz'}
+            ,done: function(data){
+                //上传完毕回调
+                if(data.code === 1){
+                    $("#tuomaogz").val(data.photo);
+                    toastr.success(data.msg);
+                }else{
+                    toastr.error(data.msg);
+                }
+            }
+            ,error: function(data){
+                //请求异常回调
+                toastr.error(data.msg);
+            }
+        });
+    });
+</script>
+</body>
+</html>

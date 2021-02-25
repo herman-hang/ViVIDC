@@ -1,0 +1,83 @@
+<script src="/static/admin/js/jquery.js"></script>
+<script src="/static/admin/js/pintuer.js"></script>
+<script src="/static/admin/js/jquery-3.5.1.min.js"></script>
+<script src="/static/admin/js/bootstrap.min.js"></script>
+<script src="/static/toastr/toastr.min.js"></script>
+
+<!--信息提示框位置初始化开始-->
+<script type="text/javascript">
+    toastr.options = {
+        closeButton: true, // 是否显示关闭按钮，（提示框右上角关闭按钮）
+        debug: false,// 是否使用deBug模式
+        progressBar: true, // 是否显示进度条，（设置关闭的超时时间进度条）
+        positionClass: "toast-top-center", // 设置提示款显示的位置
+        preventDuplicates:true,//防止重复
+        onclick: null, // 点击消息框自定义事件 
+        showDuration: "300", // 显示动画的时间
+        hideDuration: "1000", // 消失的动画时间
+        timeOut: "2000", // 自动关闭超时时间 
+        extendedTimeOut: "1000", // 加长展示时间
+        showEasing: "swing", // 显示时的动画缓冲方式
+        hideEasing: "linear", // 消失时的动画缓冲方式
+        showMethod: "fadeIn", // 显示时的动画方式
+        hideMethod: "fadeOut" // 消失时的动画方式
+    };
+</script>
+<!--信息提示框位置初始化结束-->
+<script type="text/javascript">
+    $(function(){
+        $(".leftnav h2").click(function(){
+            $(this).next().slideToggle(200);
+            $(this).toggleClass("on");
+        })
+        $(".leftnav ul li a").click(function(){
+            $("#a_leader_txt").text($(this).text());
+            $(".leftnav ul li a").removeClass("on");
+            $(this).addClass("on");
+        })
+        $("#welcome").click(function (){
+            location.reload();
+        })
+    });
+</script>
+
+
+<script>
+    //退出登录
+    $("#out").click(function (){
+        $.ajax({
+            url:"{:url('admin/Index/logOut')}",
+            type:"post",
+            dataType:"json",
+            success:function (data){
+                if (data.code == 1){
+                    toastr.success(data.msg);
+                    setTimeout(function (){
+                        location.href = data.url;
+                    },2000)
+                }else{
+                    toastr.error(data.msg);
+                }
+            }
+        });
+    });
+
+    //清除缓存
+    $("#clear").click(function (){
+        $.ajax({
+            url:"{:url('admin/Index/clear')}",
+            type:"post",
+            dataType:"json",
+            success:function (data){
+                if (data.code == 1){
+                    toastr.success(data.msg);
+                    setTimeout(function (){
+                        location.href = data.url;
+                    },2000)
+                }else{
+                    toastr.error(data.msg);
+                }
+            }
+        });
+    });
+</script>

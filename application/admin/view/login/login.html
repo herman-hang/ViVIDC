@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>登录 - 后台管理中心</title>
+    <link rel="stylesheet" href="/static/admin/css/pintuer.css">
+    <link rel="stylesheet" href="/static/admin/css/admin.css">
+    <link rel="stylesheet" href="/static/admin/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/toastr/toastr.min.css">
+</head>
+<body>
+<div class="bg"></div>
+<div class="container">
+    <div class="line bouncein">
+        <div class="xs6 xm4 xs3-move xm4-move">
+            <div style="height:150px;"></div>
+            <div class="media media-y margin-big-bottom">           
+            </div>         
+            <form action="" method="post" id="form">
+            <div class="panel loginbox">
+                <div class="text-center margin-big padding-big-top"><h1>后台管理中心</h1></div>
+                <div class="panel-body" style="padding:30px; padding-bottom:10px; padding-top:10px;">
+                    <div class="form-group">
+                        <div class="field field-icon-right">
+                            <input type="text" class="input input-big" name="user" placeholder="登录账号" data-validate="required:请填写账号" />
+                            <span class="icon icon-user margin-small"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="field field-icon-right">
+                            <input type="password" class="input input-big" name="password" id="password" placeholder="登录密码" data-validate="required:请填写密码" />
+                            <span class="icon icon-key margin-small"></span>
+                        </div>
+                    </div>
+                    <div class="form-group" id="capt" style="display: none">
+                        <div class="field">
+                            <input type="text" class="input input-big" name="code" id="code" placeholder="填写右侧的验证码" data-validate="required:请填写右侧的验证码" />
+                           <img src="{:captcha_src()}" alt="captcha" id="captcha" width="100" height="32" class="passcode" style="height:43px;cursor:pointer;" onclick="this.src=this.src+'?'">
+                        </div>
+                    </div>
+                </div>
+                <div style="padding:30px;">
+                    <input type="button" id="login" class="button button-block bg-main text-big input-big" value="登录">
+                </div>
+            </div>
+            </form>          
+        </div>
+    </div>
+</div>
+<style>
+    .toast-top-center{top:100px;}
+</style>
+<script src="/static/admin/js/jquery.js"></script>
+<script src="/static/admin/js/bootstrap.min.js"></script>
+<script src="/static/admin/js/pintuer.js"></script>
+<script src="/static/toastr/toastr.min.js"></script>
+<!--信息提示框位置初始化开始-->
+<script type="text/javascript">
+    toastr.options = {
+        closeButton: false, // 是否显示关闭按钮，（提示框右上角关闭按钮）
+        debug: false,// 是否使用deBug模式
+        progressBar: false, // 是否显示进度条，（设置关闭的超时时间进度条）
+        positionClass: "toast-top-center", // 设置提示款显示的位置
+        preventDuplicates:true,//防止重复
+        onclick: null, // 点击消息框自定义事件 
+        showDuration: "300", // 显示动画的时间
+        hideDuration: "1000", // 消失的动画时间
+        timeOut: "2000", // 自动关闭超时时间 
+        extendedTimeOut: "1000", // 加长展示时间
+        showEasing: "swing", // 显示时的动画缓冲方式
+        hideEasing: "linear", // 消失时的动画缓冲方式
+        showMethod: "fadeIn", // 显示时的动画方式
+        hideMethod: "fadeOut" // 消失时的动画方式
+    };
+</script>
+<!--信息提示框位置初始化结束-->
+<script>
+    //刷新验证码弹出
+    $(function (){
+        var strSession = "{$Think.session.passError}";
+        if (strSession !== ""){
+            document.getElementById("capt").style.display = 'block';
+        }
+    });
+
+    //点击登录按钮触发
+    $("#login").click(function (){
+        login();
+    });
+
+    // 回车登录
+    $(document).keyup(function(e) {
+        if (e.keyCode === 13) {
+            login();
+            return false;
+        }
+    });
+
+    //登录提交
+    function login(){
+        var strSession = "{$Think.session.passError}";
+        $.ajax({
+            type:"post",
+            url:"{:url('admin/Login/login')}",
+            dataType:"json",
+            data:$("#form").serialize(),
+            success:function (data){
+                if(data.code === 0){
+                    toastr.error(data.msg);
+                    if (strSession !== null){
+                        document.getElementById('capt').style.display = 'block';
+                    }
+                    document.getElementById("captcha").onclick();//刷新验证码
+                    document.getElementById("password").value="";//清空密码
+                    document.getElementById("code").value="";//情况验证码
+                    $("#password").focus();//光标定位在密码输入框
+                }else{
+                    if (data.code === 1){
+                        toastr.success(data.msg);
+                        setTimeout(function() {
+                            location.href = data.url;
+                        }, 2000)
+                    }else{
+                        toastr.error(data.msg);
+                    }
+                }
+            },
+        });
+    }
+</script>
+
+</body>
+</html>

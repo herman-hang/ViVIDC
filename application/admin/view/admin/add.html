@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>管理员添加</title>
+    {include file='public/style'}
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-key"></span> 管理员添加</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" action="" id="form">
+            <div class="form-group">
+                <div class="label">
+                    <label>管理员帐号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="user" name="user" size="50" placeholder="请输入管理员账号" data-validate="required:请输入管理员账号" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>管理员密码：</label>
+                </div>
+                <div class="field">
+                    <input type="password" class="input w50" id="password" name="password" size="50" placeholder="请输入密码" data-validate="required:请输入新密码,length#>=6:新密码不能小于6位" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>确认密码：</label>
+                </div>
+                <div class="field">
+                    <input type="password" class="input w50" name="passwords" size="50" placeholder="请再次输入密码" data-validate="required:请再次输入新密码,repeat#password:两次输入的密码不一致" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>头像：</label>
+                </div>
+                <div class="field">
+                    <input type="text" id="photo" name="photo" class="input tips" placeholder="点击右边按钮上传头像" style="width:25%; float:left;" value="" data-toggle="hover" data-place="right" data-image=""  />
+                    <input type="button" name="file" class="button bg-blue margin-left" id="image" value="+ 浏览上传" >
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>真实姓名：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="name" name="name" size="50" placeholder="请输入管理员真实姓名" data-validate="required:可以为空，建议填写" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>性别：</label>
+                </div>
+                <div class="field">
+                    <select name="sex" style="padding:5px 15px; border:1px solid #ddd;">
+                        <option value="0">女</option>
+                        <option value="1" selected>男</option>
+                        <option value="2">保密</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>年龄：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="age" name="age" size="50" placeholder="请输入管理员年龄" data-validate="required:可以为空，建议填写" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>地区：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="region" name="region" size="50" placeholder="请输入管理员所在地址" data-validate="required:可以为空，建议填写" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>手机号码：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="mobile" name="mobile" size="50" placeholder="请输入管理员手机号码" data-validate="required:可以为空，建议填写" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>邮箱：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="email" name="email" size="50" placeholder="请输入管理员邮箱" data-validate="required:可以为空，建议填写" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>简介：</label>
+                </div>
+                <div class="field">
+                    <textarea name="introduction" class="input w50" size="50" placeholder="请输入管理员简介" data-validate="required:可以为空，建议填写"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>状态：</label>
+                </div>
+                <div class="field">
+                    <select name="status" style="padding:5px 15px; border:1px solid #ddd;">
+                        <option value="0">已停用</option>
+                        <option value="1" selected>已启用</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>权限组：</label>
+                </div>
+                <div class="field">
+                    <select name="group" style="padding:5px 15px; border:1px solid #ddd;">
+                        <option value="1" selected>超级管理员</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-check-square-o" type="button" id="submit"> 提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include file='public/footer'}
+<script src="/static/layui/layui.js"></script>
+<script>
+    /*提交数据*/
+    $("#submit").click(function (){
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            url:"{:url('Admin/add')}",
+            data:$("#form").serializeArray(),
+            success:function (data){
+                if (data.code === 1){
+                    toastr.success(data.msg);
+                    setTimeout(function() {
+                        location.href = data.url;
+                    }, 2000)
+                }else{
+                    if (data.code === 0){
+                        toastr.error(data.msg);
+                    }else{
+                        toastr.error(data.msg);
+                    }
+                }
+            }
+        });
+    });
+    /*上传头像开始*/
+    layui.use('upload', function(){
+        var upload = layui.upload;
+        //执行上传图片，并获取图片信息
+        var uploadInst = upload.render({
+            elem: '#image' //绑定元素
+            ,exts: 'jpg|png|gif|bmp|jpeg'
+            ,url: "{:url('Base/upload')}" //上传接口
+            ,done: function(data){
+                //上传完毕回调
+                if(data.code === 1){
+                    $("#photo").val(data.photo).attr('data-image',data.photo);
+                    toastr.success(data.msg);
+                }else{
+                    toastr.error(data.msg);
+                }
+            }
+            ,error: function(data){
+                //请求异常回调
+                toastr.error(data.msg);
+            }
+        });
+    });
+    /*上传头像结束*/
+</script>
+</body>
+</html>

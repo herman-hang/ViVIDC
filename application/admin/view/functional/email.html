@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>邮件配置</title>
+    {include file='public/style'}
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 邮件配置</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" action="" id="form">
+            <div class="form-group">
+                <div class="label">
+                    <label>邮箱：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="email" value="{$email.email}" placeholder="发信邮箱"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>SMTP服务器：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="stmp" value="{$email.stmp}" placeholder="如:smtp.qq.com"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>SMTP端口：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="sll" value="{$email.sll}" placeholder="发信端口"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>邮件KEY：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="key" value="{$email.key}" placeholder="QQ邮箱为安全码,163邮箱为授权码"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>发送测试邮件：</label>
+                </div>
+                <div class="field">
+                    <input type="text" id="test_email" name="test_email" class="input tips" placeholder="测试邮箱" style="width:25%; float:left;" value="{$email.test_email}" data-toggle="hover" data-place="right"/>
+                    <input type="button" name="file" class="button bg-blue margin-left" id="image1" value="发送测试" >
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-check-square-o" id="submit" type="button"> 提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include file='public/footer'}
+<script>
+    $("#submit").click(function (){
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            url:"{:url('Functional/email')}",
+            data:$("#form").serialize(),
+            success:function (data){
+                if (data.code === 1){
+                    toastr.success(data.msg);
+                    setTimeout(function (){
+                        location.href = data.url;
+                    },2000);
+                }else{
+                    if (data.code === 0){
+                        toastr.error(data.msg);
+                    }else{
+                        toastr.error(data.msg);
+                    }
+                }
+            }
+        });
+    });
+</script>
+</body></html>
