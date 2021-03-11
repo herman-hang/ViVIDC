@@ -9,5 +9,6 @@ use think\Model;
 
 class System extends Model
 {
-
+    //关闭自动时间戳
+    protected $autoWriteTimestamp = false;
 }

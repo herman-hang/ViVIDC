@@ -4,7 +4,6 @@
  * by:小航 QQ:11467102
  */
 namespace app\admin\controller;
-use app\admin\controller\Base;
 use app\admin\model\Admin;
 use app\admin\model\System;
 use think\facade\Request;
@@ -15,14 +14,7 @@ use app\admin\validate\Login as LoginValidate;
 class Login extends Base
 {
     /**
-     * 初始化
-     */
-    protected function initialize()
-    {
-    }
-
-    /**
-     * 登录渲染
+     * 登录
      */
     public function login()
     {
@@ -30,7 +22,7 @@ class Login extends Base
         if (Session::has('Admin')){
             $this->redirect('Index/index');
         }
-
+        //判断是否为ajax请求
         if(request()->isAjax()){
             //接收前台传过来的user值
             $info = Request::param();
@@ -69,6 +61,8 @@ class Login extends Base
                                 Session::set('Admin',$Admin);
                                 //登录总次数自增1
                                 $admin->setInc('login_sum');
+                                //记录日志
+                                $this->log("登录成功！",1);
                                 $this->success("欢迎回来！",'Index/index');
                             }else{
                                 //记录密码登录错误时间,便于$error_time分钟后对登录错误次数清零
@@ -77,9 +71,13 @@ class Login extends Base
                                 $admin->setInc('login_error');
                                 //设置密码登录错误session值,便于跳出验证码
                                 Session::set('passError',time());
+                                //记录日志
+                                $this->log("登录密码错误！",1,$admin['id']);
                                 $this -> error("密码错误!");
                             }
                         }else{
+                            //记录日志
+                            $this->log("非法请求！",1,$admin['id']);
                             $this->error("非法请求！");
                         }
                     }
@@ -87,6 +85,8 @@ class Login extends Base
                     if(!captcha_check($info['code'])){
                         // 验证失败
                         $this->error("验证码错误！");
+                        //记录日志
+                        $this->log("登录输入验证码错误！",1,$admin['id']);
                     }
                     //解除登录错误时间，恢复初始化
                     if ($admin->getData('error_time') <= time()){
@@ -109,6 +109,8 @@ class Login extends Base
                                         $admin->setInc('login_sum');
                                         //删除密码错误记录的session值
                                         Session::delete('passError');
+                                        //记录日志
+                                        $this->log("登录成功！",1);
                                         $this->success("欢迎回来！",'Index/index');
                                     }else{
                                         //记录密码登录错误时间,便于$error_time分钟后对登录错误次数清零
@@ -120,15 +122,21 @@ class Login extends Base
                                         //获取允许登录错误最大次数
                                         $max_error = $system->getData('max_logerror');
                                         $count = $max_error - $error_count;
+                                        //记录日志
+                                        $this->log("登录密码错误，还有{$count}次机会！",1,$admin['id']);
                                         $this->error("密码错误，还有{$count}次机会！");
                                     }
                                 }else{
+                                    //记录日志
+                                    $this->log("非法请求！",1,$admin['id']);
                                     $this->error("非法请求！");
                                 }
                             }
                         }else{
                             //计算剩余多少分钟解封，这里强制转为int类型
                             $time = (int)($admin->getData('ban_time') - time()/60);
+                            //记录日志
+                            $this->log("登录错误过多，请{$time}分钟后再试！",1,$admin['id']);
                             $this->error("登录错误过多，请{$time}分钟后再试！");
                         }
                     }else{
@@ -144,6 +152,8 @@ class Login extends Base
                                     if ($admin->getData('login_error') >= $system->getData('max_logerror')){
                                         //封禁时间写入
                                         $admin->save(['ban_time'=>$ban_time]);
+                                        //记录日志
+                                        $this->log("登录错误过多，请{$BAN}分钟后再试！",1,$admin['id']);
                                         $this->error("登录错误过多，请{$BAN}分钟后再试！");
                                     }else{
                                         if (password_verify($info['password'],$admin['password']) == true){
@@ -157,6 +167,8 @@ class Login extends Base
                                             Session::delete('passError');
                                             //登录错误时间清空
                                             $admin->save(['error_time'=>NULL]);
+                                            //记录日志
+                                            $this->log("登录成功！",1);
                                             $this->success("欢迎回来！",'Index/index');
                                         }else{
                                             //记录密码登录错误时间,便于$error_time分钟后对登录错误次数清零
@@ -168,16 +180,22 @@ class Login extends Base
                                             //获取允许登录错误最大次数
                                             $max_error = $system->getData('max_logerror');
                                             $count = $max_error - $error_count;
+                                            //记录日志
+                                            $this->log("密码错误，还有{$count}次机会！",1,$admin['id']);
                                             $this->error("密码错误，还有{$count}次机会！");
                                         }
                                     }
                                 }else{
+                                    //记录日志
+                                    $this->log("非法请求！",1,$admin['id']);
                                     $this->error("非法请求！");
                                 }
                             }
                         }else{
                             //计算剩余多少分钟解封，这里强制转为int类型
                             $time = (int)($admin->getData('ban_time') - time()/60);
+                            //记录日志
+                            $this->log("登录错误过多，请{$time}分钟后再试！",1,$admin['id']);
                             $this->error("登录错误过多，请{$time}分钟后再试！");
                         }
                     }

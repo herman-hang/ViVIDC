@@ -4,7 +4,6 @@
  * by:小航 QQ:11467102
  */
 namespace app\admin\controller;
-use app\admin\controller\Base;
 use think\Db;
 use think\facade\Env;
 use think\facade\Session;
@@ -16,6 +15,10 @@ class Index extends Base
      */
     public function index()
     {
+        //查询管理员头像
+        $info = Db::name('admin')->where('id',Session::get('Admin.id'))->field('photo')->find();
+        //给模板赋值
+        $this->assign(['admin'=>$info]);
         return $this->fetch('index');
     }
 

@@ -3,3 +3,4 @@
 *.log
 .env
 .DS_Store
+/public/phpMyAdmin4.8.5/

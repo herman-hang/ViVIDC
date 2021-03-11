@@ -13,7 +13,8 @@ class System extends Validate
         'email'         =>  'email',
         'qq'            =>  'min:5|max:11|number',
         'usergroup'     =>  'min:6|max:9|number',
-        'max_logerror'  =>  'number'
+        'max_logerror'  =>  'number',
+        'access'        =>  'alphaNum',
     ];
 
     //自定义提示信息
@@ -26,6 +27,7 @@ class System extends Validate
         'usergroup.max'         =>  'QQ群位数过长！',
         'usergroup.number'      =>  'QQ群必须纯数字！',
         'max_logerror.number'   =>  '允许登录错误次数必须是纯数字！',
+        'access.alphaNum'       =>  '后台入口地址仅允许出现字母和数字',
     ];
 
     //system场景验证
@@ -37,6 +39,6 @@ class System extends Validate
     //security场景验证
     public function sceneSecurity()
     {
-        return $this->only(['max_logerror']);
+        return $this->only(['max_logerror,access']);
     }
 }

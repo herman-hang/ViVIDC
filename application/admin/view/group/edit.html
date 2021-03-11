@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>权限组编辑</title>
+    {include file='public/style'}
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-key"></span> 权限组添加</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" action="" id="form">
+            <div class="form-group">
+                <div class="label">
+                    <label>权限组名称：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="name" id="name" value="{$rules.name}" placeholder="权限组名称"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>说明：</label>
+                </div>
+                <div class="field">
+                    <textarea class="input" name="instruction" id="instruction" placeholder="权限详细说明">{$rules.instruction}</textarea>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>状态：</label>
+                </div>
+                <div class="field">
+                    {if condition="$rules.status eq '1'"}
+                    <select name="status" id="status" style="padding:5px 15px; border:1px solid #ddd;">
+                        <option value="0">已停用</option>
+                        <option value="1" selected>已启用</option>
+                    </select>
+                    {else/}
+                    <select name="status" id="status" style="padding:5px 15px; border:1px solid #ddd;">
+                        <option value="0"  selected>已停用</option>
+                        <option value="1">已启用</option>
+                    </select>
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>选择权限：</label>
+                </div>
+                <div class="form-controls col-xs-8 col-sm-9">
+                    {foreach $edit as $val}
+                    <dl class="Hui-admin-permission-list">
+                        <dt>
+                            <label>
+                                <input type="checkbox" value="{$val.id}" name="user-Character-{$val.id}" id="user-Character-{$val.id}">
+                                {$val.name}</label>
+                        </dt>
+
+                        {foreach $val['two'] as $va}
+                        <dd>
+                            <dl class="clearfix Hui-admin-permission-list2">
+                                <dt>
+                                    <label class="">
+                                        <input type="checkbox" value="{$va.id}" name="user-Character-{$va.pid}-{$va.id}" id="user-Character-{$va.pid}-{$va.id}">
+                                        {$va.name}</label>
+                                </dt>
+
+                                <dd>
+                                    {foreach $va['three'] as $v}
+                                    <label class="">
+                                        <input type="checkbox" value="{$v.id}" name="user-Character-{$v.pid}-{$v.ppid}-{$v.id}" id="user-Character-{$v.pid}-{$v.ppid}-{$v.id}">
+                                        {$v.name}</label>
+                                    {/foreach}
+                                </dd>
+                            </dl>
+                        </dd>
+                        {/foreach}
+
+                    </dl>
+                    {/foreach}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <!--隐藏字段-->
+                    <input type="hidden" value="{$rules.id}" id="rules">
+                    <button class="button bg-main icon-check-square-o" type="button" id="submit"> 提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<style>
+    /*权限开始*/
+    .Hui-admin-permission-list {
+        border: solid 1px #eee;
+    }
+    .Hui-admin-permission-list > dt {
+        background-color: #efefef;
+        padding: 5px 10px;
+    }
+    .Hui-admin-permission-list > dd {
+        padding: 10px;
+        padding-left: 30px;
+    }
+    .Hui-admin-permission-list > dd > dl {
+        border-bottom: solid 1px #eee;
+        padding: 5px 0;
+    }
+    .Hui-admin-permission-list > dd > dl > dt {
+        display: inline-block;
+        float: left;
+        white-space: nowrap;
+        width: 100px;
+    }
+    .Hui-admin-permission-list > dd > dl > dd {
+        margin-left: 100px;
+    }
+    .Hui-admin-permission-list > dd > dl > dd > label{
+        padding-right: 10px;
+    }
+    .form-horizontal .form-controls {
+        line-height: 28px;
+        position: relative;
+    }
+    @media (min-width: 768px){
+        .col-sm-9 {
+            width: 85%;
+            float: left;
+            padding-right: 0px;
+            padding-left: 0px;
+        }
+    }
+    dd{padding: 0}
+    /*权限结束*/
+</style>
+
+{include file='public/footer'}
+<script>
+    {foreach $rules['rules'] as $v}
+    $("input:checkbox[value='{$v}']").prop("checked",true);
+    {/foreach}
+    /*权限全选开始*/
+    $(function(){
+        $(".Hui-admin-permission-list dt input:checkbox").click(function(){
+            $(this).closest("dl").find("dd input:checkbox").prop("checked",$(this).prop("checked"));
+        });
+        $(".Hui-admin-permission-list2 dt input:checkbox").click(function(){
+            var l =$(this).parent().parent().find("input:checked").length;
+            var l2=$(this).parents(".Hui-admin-permission-list").find(".Hui-admin-permission-list2 dd").find("input:checked").length;
+            if($(this).prop("checked")){
+                $(this).closest("dl").find("dt input:checkbox").prop("checked",true);
+                $(this).parents(".Hui-admin-permission-list").find("dt").first().find("input:checkbox").prop("checked",true);
+            }else{
+                if(l==0){
+                    $(this).closest("dl").find("dt input:checkbox").prop("checked",false);
+                }
+                if(l2==0){
+                    $(this).parents(".Hui-admin-permission-list").find("dt").first().find("input:checkbox").prop("checked",false);
+                }
+            }
+        });
+        $(".Hui-admin-permission-list2 dd input:checkbox").click(function(){
+            var l =$(this).parent().parent().find("input:checked").length;
+            var l2=$(this).parents(".Hui-admin-permission-list").find(".Hui-admin-permission-list2 dd").find("input:checked").length;
+            if($(this).prop("checked")){
+                $(this).closest("dl").find("dt input:checkbox").prop("checked",true);
+                $(this).parents(".Hui-admin-permission-list").find("dt").first().find("input:checkbox").prop("checked",true);
+            }else{
+                if(l==0){
+                    $(this).closest("dl").find("dt input:checkbox").prop("checked",false);
+                }
+                if(l2==0){
+                    $(this).parents(".Hui-admin-permission-list").find("dt").first().find("input:checkbox").prop("checked",false);
+                }
+            }
+        });
+    });
+    /*权限全选结束*/
+
+    /*提交数据*/
+    $("#submit").click(function (){
+        var data = {};
+        var chbox = $("input[type='checkbox']");
+        var str="";
+        for(var i=0;i<chbox.length;i++){
+            if($(chbox[i]).is(":checked") && $(chbox[i]).val() !== ""){
+                if (i === chbox.length - 1){
+                    str += $(chbox[i]).val();
+                }else{
+                    str += $(chbox[i]).val()+',';
+                }
+            }
+        }
+        data['id'] = $("#rules").val();
+        data['name'] = $("#name").val();
+        data['instruction'] = $("#instruction").val();
+        data['status'] = $("#status").val();
+        data['rules'] = str;
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            url:"{:url('Group/edit')}",
+            data:data,
+            success:function (data){
+                if (data.code === 1){
+                    toastr.success(data.msg);
+                    setTimeout(function() {
+                        location.href = data.url;
+                    }, 2000)
+                }else{
+                    if (data.code === 0){
+                        toastr.error(data.msg);
+                    }else{
+                        toastr.error(data.msg);
+                    }
+                }
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

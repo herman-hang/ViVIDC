@@ -18,7 +18,7 @@
                     <label>权限组名称：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="name" value="" placeholder="权限组名称"/>
+                    <input type="text" class="input" name="name" id="name" value="" placeholder="权限组名称"/>
                     <div class="tips"></div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                     <label>说明：</label>
                 </div>
                 <div class="field">
-                    <textarea class="input" name="instruction" placeholder="权限详细说明"></textarea>
+                    <textarea class="input" name="instruction" id="instruction" placeholder="权限详细说明"></textarea>
                     <div class="tips"></div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                     <label>状态：</label>
                 </div>
                 <div class="field">
-                    <select name="status" style="padding:5px 15px; border:1px solid #ddd;">
+                    <select name="status" id="status" style="padding:5px 15px; border:1px solid #ddd;">
                         <option value="0">已停用</option>
                         <option value="1" selected>已启用</option>
                     </select>
@@ -47,98 +47,36 @@
                     <label>选择权限：</label>
                 </div>
                 <div class="form-controls col-xs-8 col-sm-9">
+                    {foreach $add as $val}
                     <dl class="Hui-admin-permission-list">
                         <dt>
                             <label>
-                                <input type="checkbox" value="" name="user-Character-0" id="user-Character-0" class="valid">
-                                资讯管理</label>
+                                <input type="checkbox" value="{$val.id}" name="user-Character-{$val.id}" id="user-Character-{$val.id}">
+                                {$val.name}</label>
                         </dt>
+
+                        {foreach $val['two'] as $va}
                         <dd>
                             <dl class="clearfix Hui-admin-permission-list2">
                                 <dt>
                                     <label class="">
-                                        <input type="checkbox" value="" name="user-Character-0-0" id="user-Character-0-0">
-                                        栏目管理</label>
+                                        <input type="checkbox" value="{$va.id}" name="user-Character-{$va.pid}-{$va.id}" id="user-Character-{$va.pid}-{$va.id}">
+                                        {$va.name}</label>
                                 </dt>
+
                                 <dd>
+                                    {foreach $va['three'] as $v}
                                     <label class="">
-                                        <input type="checkbox" value="" name="user-Character-0-0-0" id="user-Character-0-0-0" class="valid">
-                                        添加</label>
-                                    <label class="">
-                                        <input type="checkbox" value="" name="user-Character-0-0-0" id="user-Character-0-0-1">
-                                        修改</label>
-                                    <label class="">
-                                        <input type="checkbox" value="" name="user-Character-0-0-0" id="user-Character-0-0-2">
-                                        删除</label>
-                                    <label class="">
-                                        <input type="checkbox" value="" name="user-Character-0-0-0" id="user-Character-0-0-3">
-                                        查看</label>
-                                    <label class="">
-                                        <input type="checkbox" value="" name="user-Character-0-0-0" id="user-Character-0-0-4">
-                                        审核</label>
-                                    <label class="c-orange"><input type="checkbox" value="" name="user-Character-0-0-0" id="user-Character-0-0-5" class="valid"> 只能操作自己发布的</label>
-                                </dd>
-                            </dl>
-                            <dl class="clearfix Hui-admin-permission-list2">
-                                <dt>
-                                    <label class="">
-                                        <input type="checkbox" value="" name="user-Character-0-1" id="user-Character-0-1">
-                                        文章管理</label>
-                                </dt>
-                                <dd>
-                                    <label class="">
-                                        <input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-0" class="valid">
-                                        添加</label>
-                                    <label class="">
-                                        <input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-1">
-                                        修改</label>
-                                    <label class="">
-                                        <input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-2">
-                                        删除</label>
-                                    <label class="">
-                                        <input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-3">
-                                        查看</label>
-                                    <label class="">
-                                        <input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-4">
-                                        审核</label>
-                                    <label class="c-orange"><input type="checkbox" value="" name="user-Character-0-2-0" id="user-Character-0-2-5"> 只能操作自己发布的</label>
+                                        <input type="checkbox" value="{$v.id}" name="user-Character-{$v.pid}-{$v.ppid}-{$v.id}" id="user-Character-{$v.pid}-{$v.ppid}-{$v.id}">
+                                        {$v.name}</label>
+                                    {/foreach}
                                 </dd>
                             </dl>
                         </dd>
+                        {/foreach}
+
                     </dl>
-                    <dl class="Hui-admin-permission-list">
-                        <dt>
-                            <label>
-                                <input type="checkbox" value="" name="user-Character-0" id="user-Character-1">
-                                用户中心</label>
-                        </dt>
-                        <dd>
-                            <dl class="clearfix Hui-admin-permission-list2">
-                                <dt>
-                                    <label class="">
-                                        <input type="checkbox" value="" name="user-Character-1-0" id="user-Character-1-0">
-                                        用户管理</label>
-                                </dt>
-                                <dd>
-                                    <label class="">
-                                        <input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-0">
-                                        添加</label>
-                                    <label class="">
-                                        <input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-1">
-                                        修改</label>
-                                    <label class="">
-                                        <input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-2" class="valid">
-                                        删除</label>
-                                    <label class="">
-                                        <input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-3">
-                                        查看</label>
-                                    <label class="">
-                                        <input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-4" class="valid">
-                                        审核</label>
-                                </dd>
-                            </dl>
-                        </dd>
-                    </dl>
+                    {/foreach}
                 </div>
             </div>
             <div class="form-group">
@@ -206,6 +144,21 @@
         $(".Hui-admin-permission-list dt input:checkbox").click(function(){
             $(this).closest("dl").find("dd input:checkbox").prop("checked",$(this).prop("checked"));
         });
+        $(".Hui-admin-permission-list2 dt input:checkbox").click(function(){
+            var l =$(this).parent().parent().find("input:checked").length;
+            var l2=$(this).parents(".Hui-admin-permission-list").find(".Hui-admin-permission-list2 dd").find("input:checked").length;
+            if($(this).prop("checked")){
+                $(this).closest("dl").find("dt input:checkbox").prop("checked",true);
+                $(this).parents(".Hui-admin-permission-list").find("dt").first().find("input:checkbox").prop("checked",true);
+            }else{
+                if(l==0){
+                    $(this).closest("dl").find("dt input:checkbox").prop("checked",false);
+                }
+                if(l2==0){
+                    $(this).parents(".Hui-admin-permission-list").find("dt").first().find("input:checkbox").prop("checked",false);
+                }
+            }
+        });
         $(".Hui-admin-permission-list2 dd input:checkbox").click(function(){
             var l =$(this).parent().parent().find("input:checked").length;
             var l2=$(this).parents(".Hui-admin-permission-list").find(".Hui-admin-permission-list2 dd").find("input:checked").length;
@@ -226,11 +179,27 @@
 
     /*提交数据*/
     $("#submit").click(function (){
-        $.ajax({
+        var data = {};
+        var chbox = $("input[type='checkbox']");
+        var str="";
+        for(var i=0;i<chbox.length;i++){
+            if($(chbox[i]).is(":checked") && $(chbox[i]).val() !== ""){
+                if (i === chbox.length - 1){
+                    str += $(chbox[i]).val();
+                }else{
+                    str += $(chbox[i]).val()+',';
+                }
+            }
+        }
+        data['name'] = $("#name").val();
+        data['instruction'] = $("#instruction").val();
+        data['status'] = $("#status").val();
+        data['rules'] = str;
+       $.ajax({
             type:"post",
             dataType:"json",
             url:"{:url('Group/add')}",
-            data:$("#form").serializeArray(),
+            data:data,
             success:function (data){
                 if (data.code === 1){
                     toastr.success(data.msg);

@@ -4,11 +4,13 @@
  * by:小航 QQ:11467102
  */
 namespace app\admin\controller;
-use app\admin\controller\Base;
+use app\admin\model\Admin;
+use app\admin\validate\Admin as AdminValidate;
 use think\facade\Request;
 use think\Db;
 use app\admin\model\System as SystemModel;
 use app\admin\validate\System as SystemValidate;
+use think\facade\Session;
 
 class System extends Base
 {
@@ -22,8 +24,9 @@ class System extends Base
         if (request()->isAjax()){
             //接收所有提交数值
             $data = Request::param();
-            //验证
+            //实例化
             $validate = new SystemValidate;
+            //验证数据
             if (!$validate->sceneSystem()->check($data)){
                 $this->error($validate->getError());
             }
@@ -45,22 +48,30 @@ class System extends Base
     public function security()
     {
         //当前的信息
-        $info = Db::name('system')->where('id',1)->field('max_logerror,ip')->find();
+        $info = Db::name('system')->where('id',1)->field('max_logerror,ip,access')->find();
         if (request()->isAjax()){
             //接收数值
             $data = Request::param();
+            //实例化
             $validate = new SystemValidate;
-            //验证数值
+            //验证数据
             if (!$validate->sceneSecurity()->check($data)){
                 $this->error($validate->getError());
             }
-           if ($data['ip'] == NULL) {
-               //更新数据
-               $res = Db::name('system')->where('id',1)->update(['max_logerror'=>$data['max_logerror']]);
-           }else{
-               //更新数据
-               $res = Db::name('system')->where('id',1)->update($data);
-           }
+            //判断是否修改了后台入口地址
+            if($data['access'] !== $info['access']){
+                //执行修改并更新数据表入口地址字段信息
+                rename($info['access'],$data['access']);
+            }
+            //实例化
+            $system = new SystemModel();
+            if ($data['ip'] == NULL) {
+                //仅允许access,max_logerror字段写入
+                $res = $system->allowField(['access','max_logerror'])->save($data,['id'=>1]);
+            }else{
+                //更新数据并过滤数据表中不存在的字段
+                $res = $system->allowField(true)->save($data,['id'=>1]);
+            }
             if ($res){
                 $this->success("更新成功！");
             }else{
@@ -89,5 +100,63 @@ class System extends Base
         }
         $this->assign(['system'=>$info]);
         return $this->fetch('block');
+    }
+
+    /**
+     * 修改密码
+     */
+    public function passEdit()
+    {
+        //查询当前管理员用户名
+        $info = Db::name('admin')->where('id',Session::get('Admin.id'))->field('id,user,password')->find();
+        //判断是否为ajax请求
+        if (request()->isAjax()){
+            //接收数据
+            $data = Request::param();
+            //判断原始密码是否正确
+            if (password_verify($data['mpassword'],$info['password'])){
+                //对数据进行验证
+                $validate = new AdminValidate();
+                if (!$validate->scenepassEdit()->check($data)){
+                    $this->error($validate->getError());
+                }
+                //对密码进行加密
+                $data['password'] = password_hash($data['password'],PASSWORD_BCRYPT);
+                //实例化对象
+                $admin = new Admin();
+                //执行更新并过滤非数据表字段
+                $res = $admin->allowField(true)->save($data,['id'=>$data['id']]);
+                if ($res){
+                    $this->success("修改成功！");
+                }else{
+                    $this->error("修改失败！");
+                }
+            }else{
+                $this->error("原始密码错误！");
+            }
+        }
+        //给模板赋值
+        $this->assign(['pass'=>$info]);
+        return $this->fetch('pass');
+    }
+
+    /**
+     * 系统升级
+     */
+    public function update()
+    {
+        //查询系统版本号
+        $data = Db::name('system')->where('id',1)->field('version')->find();
+        //给模板赋值
+        $this->assign(['system'=>$data]);
+        return $this->fetch('update');
+    }
+
+    /**
+     * 开关管理
+     */
+    public function switch()
+    {
+        return $this->fetch('switch');
     }
 }

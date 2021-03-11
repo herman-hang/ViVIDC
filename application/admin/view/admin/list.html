@@ -38,7 +38,11 @@
           <td>{$val.user}</td>
           <td>{$val.name}</td>
           <td>{$val.mobile}</td>
+          {if !empty($val.email)}
           <td>{$val.email}</td>
+          {else/}
+          <td>无</td>
+          {/if}
           <td>{:date("Y-m-d H:i:s",$val.create_time)}</td>
           <td class="td-status">
             {if condition="$val.status eq 1"}

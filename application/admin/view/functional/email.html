@@ -42,7 +42,7 @@
             </div>
             <div class="form-group">
                 <div class="label">
-                    <label>邮件KEY：</label>
+                    <label>邮箱KEY：</label>
                 </div>
                 <div class="field">
                     <input type="text" class="input" name="key" value="{$email.key}" placeholder="QQ邮箱为安全码,163邮箱为授权码"/>
@@ -54,8 +54,8 @@
                     <label>发送测试邮件：</label>
                 </div>
                 <div class="field">
-                    <input type="text" id="test_email" name="test_email" class="input tips" placeholder="测试邮箱" style="width:25%; float:left;" value="{$email.test_email}" data-toggle="hover" data-place="right"/>
-                    <input type="button" name="file" class="button bg-blue margin-left" id="image1" value="发送测试" >
+                    <input type="text" id="test_email" name="test_email" class="input tips" placeholder="测试邮箱" style="width:25%; float:left;" value="" data-toggle="hover" data-place="right"/>
+                    <input type="button" class="button bg-blue margin-left" id="test" value="发送测试" >
                     <div class="tips"></div>
                 </div>
             </div>
@@ -72,6 +72,7 @@
 </div>
 {include file='public/footer'}
 <script>
+    //数据提交
     $("#submit").click(function (){
         $.ajax({
             type:"post",
@@ -84,6 +85,27 @@
                     setTimeout(function (){
                         location.href = data.url;
                     },2000);
+                }else{
+                    if (data.code === 0){
+                        toastr.error(data.msg);
+                    }else{
+                        toastr.error(data.msg);
+                    }
+                }
+            }
+        });
+    });
+
+    //邮件发送测试
+    $("#test").click(function (){
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            url:"{:url('Functional/testEmail')}",
+            data:$("#form").serialize(),
+            success:function (data){
+                if (data.code === 1){
+                    toastr.success(data.msg);
                 }else{
                     if (data.code === 0){
                         toastr.error(data.msg);

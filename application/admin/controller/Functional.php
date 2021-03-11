@@ -4,9 +4,9 @@
  * by:小航 QQ:11467102
  */
 namespace app\admin\controller;
-use app\admin\controller\Base;
 use think\Db;
 use think\facade\Request;
+use app\admin\model\Email;
 
 class Functional extends Base
 {
@@ -89,7 +89,10 @@ class Functional extends Base
                 //执行插入数据操作
                 $res = Db::name('email')->insert($data);
             }else{
-                $res = Db::name('email')->where('id',1)->update($data);
+                //实例化对象
+                $email = new Email();
+                //更新操作并过滤非数据表字段
+                $res = $email->allowField(true)->save($data,['id'=>1]);
             }
             //判断是否执行成功，true为成功
             if ($res){
@@ -101,6 +104,29 @@ class Functional extends Base
         //给模板赋值
         $this->assign(['email'=>$info]);
         return $this->fetch('email');
+    }
+
+    /**
+     * 测试邮件发送
+     */
+    public function testEmail()
+    {
+        //判断是否为ajax请求
+        if (request()->isajax()){
+            //接收前台信息
+            $data = Request::param();
+            //数据模拟定义
+            $name = "我叫测试";
+            $title = "这是邮件发送测试标题";
+            $content = "我是邮件发送测试的内容！";
+            //执行测试发送
+            $res = sendEmail($data['email'],$data['key'],$data['stmp'],$data['sll'],$name,$title,$content,$data['test_email']);
+            if ($res){
+                $this->success("发送成功！");
+            }else{
+                $this->error("发送失败！");
+            }
+        }
     }
 
     /*

@@ -52,7 +52,7 @@
                     <label>真实姓名：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input w50" id="name" name="name" size="50" placeholder="请输入管理员真实姓名" data-validate="required:可以为空，建议填写" />
+                    <input type="text" class="input w50" id="name" name="name" size="50" placeholder="请输入管理员真实姓名" data-validate="required:管理员真实姓名必须填写" />
                 </div>
             </div>
             <div class="form-group">
@@ -72,7 +72,7 @@
                     <label>年龄：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input w50" id="age" name="age" size="50" placeholder="请输入管理员年龄" data-validate="required:可以为空，建议填写" />
+                    <input type="text" class="input w50" id="age" name="age" size="50" placeholder="请输入管理员年龄" data-validate="required:管理员年龄必须填写" />
                 </div>
             </div>
             <div class="form-group">
@@ -88,7 +88,7 @@
                     <label>手机号码：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input w50" id="mobile" name="mobile" size="50" placeholder="请输入管理员手机号码" data-validate="required:可以为空，建议填写" />
+                    <input type="text" class="input w50" id="mobile" name="mobile" size="50" placeholder="请输入管理员手机号码" data-validate="required:管理员手机号码必须填写" />
                 </div>
             </div>
             <div class="form-group">
@@ -125,6 +125,9 @@
                 <div class="field">
                     <select name="group" style="padding:5px 15px; border:1px solid #ddd;">
                         <option value="1" selected>超级管理员</option>
+                        {foreach $add as $val}
+                        <option value="{$val.id}">{$val.name}</option>
+                        {/foreach}
                     </select>
                 </div>
             </div>

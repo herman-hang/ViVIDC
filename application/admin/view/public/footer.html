@@ -50,7 +50,7 @@
             type:"post",
             dataType:"json",
             success:function (data){
-                if (data.code == 1){
+                if (data.code === 1){
                     toastr.success(data.msg);
                     setTimeout(function (){
                         location.href = data.url;
@@ -69,7 +69,7 @@
             type:"post",
             dataType:"json",
             success:function (data){
-                if (data.code == 1){
+                if (data.code === 1){
                     toastr.success(data.msg);
                     setTimeout(function (){
                         location.href = data.url;

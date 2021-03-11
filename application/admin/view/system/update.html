@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>系统升级</title>
+    {include file='public/style'}
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 系统升级</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" action="" id="form">
+            <div class="form-group">
+                <div class="label">
+                    <label>当前系统版本：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        v{$system['version']}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-cloud-download" id="submit" type="button"> 点击升级</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include file='public/footer'}
+<script src="/static/layui/layui.js"></script>
+<script>
+    $("#submit").click(function (){
+        $.ajax({
+            type:"get",
+            dataType:"json",
+            url:"{:url('Update/checkVersion')}",
+            data:$("#form").serialize(),
+            success:function (data){
+                if (data.code === 1){
+                    var log = [];
+                    //输出版本号
+                    $("#version").html(data.version);
+                    for (var n=0; n<data.log.length; n++)
+                    {
+                        log += "<span>" +data.log[n]+ "</span><br>"
+                    }
+                    //输出日志信息
+                    $("log").html(log);
+                    //弹出信息
+                    $("#modal-demo").modal("show");
+                }else{
+                    if (data.code === 0){
+                        toastr.error(data.message);
+                    }else{
+                        toastr.error(data.message);
+                    }
+                }
+            }
+        });
+    });
+</script>
+</body></html>

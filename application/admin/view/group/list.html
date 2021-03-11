@@ -34,7 +34,7 @@
             {volist name="group" id="val"}
             <tr>
                 <td><input type="checkbox" name="id[]" value="{$val.id}" />{$val.id}</td>
-                <td>{$val.name}</td>
+                <td style="overflow: hidden; max-width:400px; white-space:nowrap; text-overflow:ellipsis;" title="{$val.name}">{$val.name}</td>
                 {if condition="!empty($val['user'])"}
                 <td style="overflow: hidden; max-width:400px; white-space:nowrap; text-overflow:ellipsis;" title="{foreach $val['user'] as $v}{$v.user} {/foreach}">
                     {foreach $val['user'] as $v}
@@ -44,7 +44,7 @@
                 {else}
                 <td>无</td>
                 {/if}
-                <td>{$val.instruction}</td>
+                <td style="overflow: hidden; max-width:400px; white-space:nowrap; text-overflow:ellipsis;" title="{$val.instruction}">{$val.instruction}</td>
                 <td>{$val.create_time}</td>
                 <td class="td-status">
                     {if condition="$val.status eq 1"}
@@ -55,7 +55,7 @@
                 </td>
                 <td>
                     <div class="button-group">
-                        <a class="button border-main" href="{:url('Admin/edit',['id'=>$val.id])}"><span class="icon-edit"></span> 修改</a>
+                        <a class="button border-main" href="{:url('Group/edit',['id'=>$val.id])}"><span class="icon-edit"></span> 修改</a>
                         <a class="button border-red" href="javascript:void(0)" onclick="del('{$val.id}')"><span class="icon-trash-o"></span> 删除</a>
                     </div>
                 </td>
@@ -102,7 +102,7 @@
             $.ajax({
                 type:"post",
                 dataType:"json",
-                url:"{:url('Admin/delete')}",
+                url:"{:url('Group/delete')}",
                 data:{id:id},
                 success:function (data){
                     if (data.code === 1){
@@ -154,7 +154,7 @@
                 $.ajax({
                     type:"post",
                     dataType:"json",
-                    url:"{:url('Admin/delete')}",
+                    url:"{:url('Group/delete')}",
                     data:{id:array},
                     success:function (data){
                         if (data.code === 1){

@@ -13,6 +13,16 @@
     <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 安全配置</strong></div>
     <div class="body-content">
         <form method="post" class="form-x" action="" id="form">
+
+            <div class="form-group">
+                <div class="label">
+                    <label>后台入口地址：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="access" value="{$system.access}" placeholder="仅允许填写字母和数字"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
             <div class="form-group">
                 <div class="label">
                     <label>指定IP地址访问后台：</label>
@@ -27,7 +37,7 @@
                     <label>允许登录错误次数：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="max_logerror" value="{$system.max_logerror}" />
+                    <input type="text" class="input" name="max_logerror" value="{$system.max_logerror}" placeholder="仅允许填写数字"/>
                     <div class="tips"></div>
                 </div>
             </div>

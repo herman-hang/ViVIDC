@@ -11,6 +11,10 @@ class ComposerStaticInit11f93b0192603eb69b38f18cc6acbea0
     );
 
     public static $prefixLengthsPsr4 = array (
+        'w' => 
+        array (
+            'wycto\\login\\' => 12,
+        ),
         't' => 
         array (
             'think\\composer\\' => 15,
@@ -20,9 +24,17 @@ class ComposerStaticInit11f93b0192603eb69b38f18cc6acbea0
         array (
             'app\\' => 4,
         ),
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'wycto\\login\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/wycto/login/src',
+        ),
         'think\\composer\\' => 
         array (
             0 => __DIR__ . '/..' . '/topthink/think-installer/src',
@@ -34,6 +46,10 @@ class ComposerStaticInit11f93b0192603eb69b38f18cc6acbea0
         'app\\' => 
         array (
             0 => __DIR__ . '/../..' . '/application',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
     );
 
