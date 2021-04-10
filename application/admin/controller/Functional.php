@@ -17,17 +17,22 @@ class Functional extends Base
     {
         //查询所有支付配置信息
         $info = Db::name('pay')->where('id',1)->find();
+        //给模板赋值
+        $this->assign(['fun'=>$info]);
+        //模板渲染
+        return $this->fetch('functional/pay');
+    }
+
+    /**
+     * 支付配置编辑
+     */
+    public function payEdit()
+    {
         //判断当前是否为ajax请求
         if (request()->isAjax()){
             $data = Request::param();
-            //判断当前查询的数据是否为空
-            if ($info == NULL){
-                //当不存在数据时直接插入
-                $res = Db::name('pay')->insert($data);
-            }else{
-                //当存在数据时执行更新数据
-                $res = Db::name('pay')->where('id',1)->update($data);
-            }
+            //当存在数据时执行更新数据
+            $res = Db::name('pay')->where('id',1)->update($data);
             //判断返回的值是否为true
             if ($res){
                 $this->success("更新成功！");
@@ -35,10 +40,6 @@ class Functional extends Base
                 $this->error("更新失败！");
             }
         }
-        //给模板赋值
-        $this->assign(['fun'=>$info]);
-        //模板渲染
-        return $this->fetch('pay');
     }
 
     /**
@@ -48,18 +49,25 @@ class Functional extends Base
     {
         //查询短信配置信息
         $info = Db::name('sms')->where('id',1)->find();
+        //给模板赋值
+        $this->assign(['sms'=>$info]);
+        //模板渲染
+        return $this->fetch('functional/sms');
+    }
+
+    /**
+     * 短信配置编辑
+     */
+    public function smsEdit()
+    {
         //判断是否为ajax请求
         if (request()->isAjax()){
             //接收前台的传过来的值
             $data = Request::param();
-            //判断当前查询的数据是否为空
-            if ($info == NULL){
-                //当不存在数据时直接插入
-                $res = Db::name('sms')->insert($data);
-            }else{
-                //当存在数据时执行更新数据
-                $res = Db::name('sms')->where('id',1)->update($data);
-            }
+            //对密码进行MD5算法加密
+            $data['smsbao_pass'] = md5($data['smsbao_pass']);
+            //当存在数据时执行更新数据
+            $res = Db::name('sms')->strict(false)->where('id',1)->update($data);
             //判断返回的值是否为true
             if ($res){
                 $this->success("更新成功！");
@@ -67,10 +75,32 @@ class Functional extends Base
                 $this->error("更新失败！");
             }
         }
-        //给模板赋值
-        $this->assign(['sms'=>$info]);
-        //模板渲染
-        return $this->fetch('sms');
+    }
+
+    /**
+     * 短信测试
+     */
+    public function testSms()
+    {
+        if (request()->isAjax()){
+            //接收数据
+            $data = Request::param();
+            //对密码进行MD5算法加密
+            $data['smsbao_pass'] = md5($data['smsbao_pass']);
+            //调用随机验证码方法
+            $code = $this->codeStr(2);
+            //验证码有效时间(单位：分钟)
+            $time = 5;
+            //自定义测试短信内容
+            $content = "【测试】这是一条测试内容，您的验证码是{$code}，在{$time}分钟有效。";
+            //调用发送函数
+            $res = sendSms($data['smsbao_account'],$data['smsbao_pass'],$content,$data['smsbao_phone']);
+            if ($res == 0){
+                $this->success("发送成功！");
+            }else{
+                $this->error("发送失败！");
+            }
+        }
     }
 
     /**
@@ -80,20 +110,24 @@ class Functional extends Base
     {
         //查询邮件配置信息
         $info = Db::name('email')->where('id',1)->find();
+        //给模板赋值
+        $this->assign(['email'=>$info]);
+        return $this->fetch('functional/email');
+    }
+
+    /**
+     * 邮件配置编辑
+     */
+    public function emailEdit()
+    {
         //判断是否为ajax请求
         if (request()->isAjax()){
             //接收前台传过来的信息
             $data = Request::param();
-            //判断当前查询数据是否为空
-            if ($info == NULL){
-                //执行插入数据操作
-                $res = Db::name('email')->insert($data);
-            }else{
-                //实例化对象
-                $email = new Email();
-                //更新操作并过滤非数据表字段
-                $res = $email->allowField(true)->save($data,['id'=>1]);
-            }
+            //实例化对象
+            $email = new Email();
+            //更新操作并过滤非数据表字段
+            $res = $email->allowField(true)->save($data,['id'=>1]);
             //判断是否执行成功，true为成功
             if ($res){
                 $this->success("更新成功！");
@@ -101,9 +135,6 @@ class Functional extends Base
                 $this->error("更新失败！");
             }
         }
-        //给模板赋值
-        $this->assign(['email'=>$info]);
-        return $this->fetch('email');
     }
 
     /**
@@ -136,18 +167,23 @@ class Functional extends Base
     {
         //查询第三方登录配置信息
         $info = Db::name('thirdparty')->where('id',1)->find();
+        //给模板赋值
+        $this->assign(['thirdparty'=>$info]);
+        //模板渲染
+        return $this->fetch('functional/thirdparty');
+    }
+
+    /**
+     * 第三方登录配置编辑
+     */
+    public function thirdpartyEdit()
+    {
         //判断当前请求是否为ajax请求
         if (request()->isAjax()){
             //接收前台传过来的值
             $data = Request::param();
-            //判断当前查询的数值是否为空
-            if ($info == NULL){
-                //为空执行插入数据操作
-                $res = Db::name('thirdparty')->insert($data);
-            }else{
-                //执行更新操作
-                $res = Db::name('thirdparty')->where('id',1)->update($data);
-            }
+            //执行更新操作
+            $res = Db::name('thirdparty')->where('id',1)->update($data);
             //判断是否操作成功，true为操作成功
             if ($res){
                 $this->success("更新成功！");
@@ -155,9 +191,5 @@ class Functional extends Base
                 $this->error("更新失败！");
             }
         }
-        //给模板赋值
-        $this->assign(['thirdparty'=>$info]);
-        //模板渲染
-        return $this->fetch('thirdparty');
     }
 }

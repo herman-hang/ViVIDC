@@ -24,7 +24,7 @@ class AdminLog extends Base
             ->paginate(10);
         //给模板赋值
         $this->assign(['log'=>$info]);
-        return $this->fetch('list');
+        return $this->fetch('admin_log/list');
     }
 
     /**
@@ -41,7 +41,7 @@ class AdminLog extends Base
             ->paginate(10);
         //给模板赋值
         $this->assign(['log'=>$info]);
-        return $this->fetch('list');
+        return $this->fetch('admin_log/list');
     }
 
 }

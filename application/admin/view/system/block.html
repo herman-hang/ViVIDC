@@ -39,7 +39,7 @@
         $.ajax({
             type:"post",
             dataType:"json",
-            url:"{:url('System/block')}",
+            url:"{:url('System/blockEdit')}",
             data:$("#form").serialize(),
             success:function (data){
                 if (data.code === 1){

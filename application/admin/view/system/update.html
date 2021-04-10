@@ -35,9 +35,44 @@
         </form>
     </div>
 </div>
+
+<!--更新日志弹出框开始-->
+<button style="display:none" class="dialogs" data-toggle="click" data-target="#mydialog" id="target" data-width="40%"></button>
+<div id="mydialog">
+    <div class="dialog">
+        <div class="dialog-head">
+            <span class="close rotate-hover"></span><strong>版本升级：<span id="version"></span></strong>
+        </div>
+        <div class="dialog-body" id="log"></div>
+        <div class="dialog-foot" style="text-align: center;">
+            <button class="button bg-blue dialog-close" onclick="update()">立刻升级</button>
+        </div>
+    </div>
+</div>
+<!--更新日志弹出框结束-->
+
+<!--升级进度条开始-->
+<button style="display:none" class="dialogs" data-toggle="click" data-target="#progress" id="update" data-width="40%"></button>
+<div id="progress">
+    <div class="dialog">
+        <div class="dialog-head">
+            <span class="close rotate-hover"></span><strong>正在升级(请勿关闭)</strong>
+        </div>
+        <div class="dialog-body">
+            <div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="dynamic">
+                <div class="layui-progress-bar layui-bg-blue" lay-percent="0%" style="background-color: #00aaee!important;"></div>
+            </div>
+        </div>
+
+</div>
+</div>
+<!--升级进度条结束-->
 {include file='public/footer'}
 <script src="/static/layui/layui.js"></script>
+
+{$Think.cookie.dialog}
 <script>
+    //版本检测
     $("#submit").click(function (){
         $.ajax({
             type:"get",
@@ -51,12 +86,12 @@
                     $("#version").html(data.version);
                     for (var n=0; n<data.log.length; n++)
                     {
-                        log += "<span>" +data.log[n]+ "</span><br>"
+                        log += "<p>" +data.log[n]+ "</p>"
                     }
                     //输出日志信息
-                    $("log").html(log);
-                    //弹出信息
-                    $("#modal-demo").modal("show");
+                    $("#log").html(log);
+                    //触发按钮
+                    document.getElementById("target").click();
                 }else{
                     if (data.code === 0){
                         toastr.error(data.message);
@@ -67,5 +102,50 @@
             }
         });
     });
+    //立刻升级
+    function update(){
+        //进度条
+        layui.use('element', function(){
+            var element = layui.element;
+            var n=0, timer = setInterval(function(){
+                n = n + Math.random()*7|0;
+                if(n>100){
+                    n = 100;
+                    clearInterval(timer);
+                }
+                $('.layui-progress-bar').attr('lay-percent',n+'%');
+                element.init();
+                element.progress('dynamic', n+'%');
+            }, 300+Math.random()*1000);
+            document.getElementById("update").click();
+            //提交数据
+            $.ajax({
+                type:"get",
+                dataType:"json",
+                url:"{:url('Update/update')}",
+                data:$("#form").serialize(),
+                success:function (data){
+                    if (data.code === 1){
+                        $('.layui-progress-bar').attr('lay-percent',100+'%');
+                        element.init();
+                        element.progress('dynamic', 100+'%');
+                        clearInterval(timer);
+                        toastr.success(data.message);
+                        setTimeout(function() {
+                            location.reload();
+                        }, 2000)
+                    }else{
+                        if (data.code === 0){
+                            toastr.error(data.message);
+                        }else{
+                            toastr.error(data.message);
+                        }
+                    }
+                }
+            });
+        });
+    }
+
+
 </script>
 </body></html>

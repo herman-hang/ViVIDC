@@ -36,7 +36,7 @@
                     <label>支付宝KEY：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="alipay_key" value="{$fun.alipay_key}" placeholder="支付宝安全校验码"/>
+                    <input type="password" class="input" name="alipay_key" value="{$fun.alipay_key}" placeholder="支付宝安全校验码"/>
                     <div class="tips"></div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                     <label>微信商户KEY：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="wxpay_kye" value="{$fun.wxpay_kye}" placeholder="微信支付商户API KEY" />
+                    <input type="password" class="input" name="wxpay_kye" value="{$fun.wxpay_kye}" placeholder="微信支付商户API KEY" />
                     <div class="tips"></div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                     <label>公众号AppSecret：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="wxpay_secret" value="{$fun.wxpay_secret}" placeholder="公众号AppSecret"/>
+                    <input type="password" class="input" name="wxpay_secret" value="{$fun.wxpay_secret}" placeholder="公众号AppSecret"/>
                     <div class="tips"></div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
                     <label>当面付公钥：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="alipayf2f_public_key" value="{$fun.alipayf2f_public_key}" placeholder="公钥"/>
+                    <input type="password" class="input" name="alipayf2f_public_key" value="{$fun.alipayf2f_public_key}" placeholder="公钥"/>
                     <div class="tips"></div>
                 </div>
             </div>
@@ -115,7 +115,7 @@
                     <label>当面付私钥：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="alipayf2f_private_key" value="{$fun.alipayf2f_private_key}" placeholder="私钥" />
+                    <input type="password" class="input" name="alipayf2f_private_key" value="{$fun.alipayf2f_private_key}" placeholder="私钥" />
                     <div class="tips"></div>
                 </div>
             </div>
@@ -141,7 +141,7 @@
                     <label>QQ商户KEY：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="qqpay_key" value="{$fun.qqpay_key}" placeholder="QQ商户KEY"/>
+                    <input type="password" class="input" name="qqpay_key" value="{$fun.qqpay_key}" placeholder="QQ商户KEY"/>
                     <div class="tips"></div>
                 </div>
             </div>
@@ -176,7 +176,7 @@
                     <label>易支付KEY：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="epay_key" value="{$fun.epay_key}" placeholder="易支付KEY"/>
+                    <input type="password" class="input" name="epay_key" value="{$fun.epay_key}" placeholder="易支付KEY"/>
                     <div class="tips"></div>
                 </div>
             </div>
@@ -204,7 +204,7 @@
        $.ajax({
             type:"post",
             dataType:"json",
-            url:"{:url('Functional/pay')}",
+            url:"{:url('Functional/payEdit')}",
             data:data,
             success:function (data){
                 if (data.code === 1){

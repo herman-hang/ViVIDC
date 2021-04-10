@@ -14,22 +14,24 @@ header("content-type:text/html;charset=UTF-8");//防乱码
 
 class Base extends Controller
 {
-    //定义不需要检测登录和不需要检测权限的路由
+    //定义不需要检测登录和不需要检测权限的路由，注意：这里的路由请一律小写
     protected $exclude = [
         'admin/login/login',//登录
-        'admin/base/isLogin',//刷新session保持登录
+        'admin/base/flushSession',//刷新session保持登录
+        'admin/oauths/login',//快捷登录
+        'admin/oauths/callback',//快捷登录授权回调地址
     ];
-    //定义需要登录但是不需要检测权限的路由
+    //定义需要登录但是不需要检测权限的路由,注意：这里的路由请一律小写
     protected $login = [
         'admin/base/upload',//图片上传
         'admin/base/sendEmail',//发送邮件
         'admin/index/index',//后台首页
         'admin/index/desktop',//后台我的桌面
         'admin/index/clear',//清除缓存
-        'admin/index/logOut',//退出登录
+        'admin/index/logout',//退出登录
         'admin/base/log',//记录日志
-        'admin/AdminLog/loginLog',//登录日志列表
-        'admin/AdminLog/operationLog',//操作日志列表
+        'admin/base/codestr',//随机生成6为验证码
+        'admin/user/search',//用户搜索
     ];
     /**
      * 初始化
@@ -89,7 +91,7 @@ class Base extends Controller
             //判断是否登录
             if(Session::has('Admin')){
                 //当超过900秒不操作时删除当前session返回登录页面
-                if (time() - Session::get('Admin.time') >= 900){
+                if (time() - Session::get('Admin.time') >= 9000){
                     //删除当前session
                     Session::delete('Admin');
                     //返回登录页面
@@ -126,18 +128,15 @@ class Base extends Controller
     /**
      * 刷新session保持登录
      */
-    public function isLogin()
+    public function flushSession()
     {
-        if (time() - Session::get('Admin.time') >= 900){
-            //存当前时间戳
-            $Admin['time'] = time();
-            //存当前管理员ID
-            $Admin['id'] = Session::get('Admin.id');
-            Session::set('Admin',$Admin);
-            $session = Session::get('Admin');
-            return $session;
-        }
-
+        //存当前时间戳加上135分钟
+        $Admin['time'] = time() + 8100;
+        //存当前管理员ID
+        $Admin['id'] = Session::get('Admin.id');
+        Session::set('Admin',$Admin);
+        $session = Session::get('Admin');
+        return $session;
     }
 
     /**
@@ -148,7 +147,7 @@ class Base extends Controller
         //接收上传的文件
         $file = request()->file('file');
         //移动到框架指定目录
-        $info = $file->validate(['size'=>156780,'ext'=>'jpg,png,gif,ico,bmp'])->move('./uploads','');
+        $info = $file->validate(['size'=>156780,'ext'=>'jpg,png,gif,ico,bmp'])->move('./uploads');
         if ($info){
             //获取图片名称
             $imgName = str_replace("\\","/",$info->getSaveName());
@@ -206,6 +205,38 @@ class Base extends Controller
         $log = new AdminLog();
         //执行添加并过滤非数据表字段
         $log->allowField(true)->save(['type'=>$type,'admin_id'=>$id,'content'=>$content,'ip'=>$ip]);
+    }
+
+    /**
+     * 生成6位随机验证码
+     * $type 验证码类型，1为邮件验证码，2为短信验证码
+     * 类型正确返回验证码,否则false
+     * */
+    public function codeStr($type = "")
+    {
+        //邮件验证码
+        if ($type == 1){
+            $arr=array_merge(range('a','z'),range('A','Z'),range('0','9'));
+            shuffle($arr);
+            $arr=array_flip($arr);
+            $arr=array_rand($arr,6);
+            $res='';
+            foreach ($arr as $v){
+                $res.=$v;
+            }
+            return $res;
+        }elseif($type == 2){//短信验证码
+            $arr=array_merge(range('0','9'));
+            shuffle($arr);
+            $arr=array_flip($arr);
+            $arr=array_rand($arr,6);
+            $res='';
+            foreach ($arr as $v){
+                $res.=$v;
+            }
+            return $res;
+        }
+        return false;
     }
 
 }

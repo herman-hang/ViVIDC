@@ -45,7 +45,7 @@
                     <label>邮箱KEY：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="key" value="{$email.key}" placeholder="QQ邮箱为安全码,163邮箱为授权码"/>
+                    <input type="password" class="input" name="key" value="{$email.key}" placeholder="QQ邮箱为安全码,163邮箱为授权码"/>
                     <div class="tips"></div>
                 </div>
             </div>
@@ -77,7 +77,7 @@
         $.ajax({
             type:"post",
             dataType:"json",
-            url:"{:url('Functional/email')}",
+            url:"{:url('Functional/emailEdit')}",
             data:$("#form").serialize(),
             success:function (data){
                 if (data.code === 1){

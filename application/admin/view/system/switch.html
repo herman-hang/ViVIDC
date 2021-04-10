@@ -10,21 +10,21 @@
 </head>
 <body>
 <div class="panel admin-panel">
-    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 开关管理</strong></div>
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 支付控制区</strong></div>
     <div class="body-content">
-        <form method="post" class="form-x" action="" id="form">
+        <form method="post" class="form-x" action="" id="pay">
             <div class="form-group">
             <div class="label">
-                <label>网站开关：</label>
+                <label>微信支付开关：</label>
             </div>
             <div class="field">
                 <div class="button-group radio">
-                    <label class="button active">
+                    <label class="button {if $switch.wxpay_switch eq 1} active {/if}">
                         <span class="icon icon-check text-green"></span>
-                        <input name="is_website" value="1" type="radio" checked="checked">开
+                        <input name="wxpay_switch" value="1" type="radio" {if $switch.wxpay_switch eq 1} checked="checked" {/if}>开
                     </label>
-                    <label class="button"><span class="icon icon-times"></span>
-                        <input name="is_website" value="0" type="radio">关
+                    <label class="button {if $switch.wxpay_switch eq 0} active {/if}"><span class="icon icon-times"></span>
+                        <input name="wxpay_switch" value="0" type="radio" {if $switch.wxpay_switch eq 0} checked="checked" {/if}>关
                     </label>
                 </div>
             </div>
@@ -32,46 +32,61 @@
 
             <div class="form-group">
                 <div class="label">
-                    <label>网站开关：</label>
+                    <label>QQ支付开关：</label>
                 </div>
                 <div class="field">
                     <div class="button-group radio">
-                        <label class="button active">
+                        <label class="button {if $switch.qqpay_switch eq 1} active {/if}">
                             <span class="icon icon-check text-green"></span>
-                            <input name="is_website" value="1" type="radio" checked="checked">开
+                            <input name="qqpay_switch" value="1" type="radio" {if $switch.qqpay_switch eq 1} checked="checked" {/if}>开
                         </label>
-                        <label class="button"><span class="icon icon-times"></span>
-                            <input name="is_website" value="0" type="radio">关
+                        <label class="button {if $switch.qqpay_switch eq 0} active {/if}"><span class="icon icon-times"></span>
+                            <input name="qqpay_switch" value="0" type="radio" {if $switch.qqpay_switch eq 0} checked="checked" {/if}>关
                         </label>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="label">
-                    <label>网站开关：</label>
+                    <label>支付宝支付开关：</label>
                 </div>
                 <div class="field">
                     <div class="button-group radio">
-                        <label class="button active">
+                        <label class="button {if $switch.alipay_switch eq 1} active {/if}">
                             <span class="icon icon-check text-green"></span>
-                            <input name="is_website" value="1" type="radio" checked="checked">开
+                            <input name="alipay_switch" value="1" type="radio" {if $switch.alipay_switch eq 1} checked="checked" {/if}>开
                         </label>
-                        <label class="button"><span class="icon icon-times"></span>
-                            <input name="is_website" value="0" type="radio">关
+                        <label class="button {if $switch.alipay_switch eq 0} active {/if}"><span class="icon icon-times"></span>
+                            <input name="alipay_switch" value="0" type="radio" {if $switch.alipay_switch eq 0} checked="checked" {/if}>关
                         </label>
                     </div>
                 </div>
             </div>
-
             <div class="form-group">
                 <div class="label">
-                    <label></label>
+                    <label>易支付开关：</label>
                 </div>
                 <div class="field">
-                    <button class="button bg-main icon-check-square-o" id="submit" type="button"> 提交</button>
+                    <div class="button-group radio">
+                        <label class="button {if $switch.epay_switch eq 1} active {/if}">
+                            <span class="icon icon-check text-green"></span>
+                            <input name="epay_switch" value="1" type="radio" {if $switch.epay_switch eq 1} checked="checked" {/if}>开
+                        </label>
+                        <label class="button {if $switch.epay_switch eq 0} active {/if}"><span class="icon icon-times"></span>
+                            <input name="epay_switch" value="0" type="radio" {if $switch.epay_switch eq 0} checked="checked" {/if}>关
+                        </label>
+                    </div>
                 </div>
             </div>
         </form>
+    </div>
+</div>
+
+<div style="margin-left: 15px;">
+    <div class="form-group">
+        <div class="field" style="margin-left: 170px;">
+            <button class="button bg-main icon-check-square-o" id="submit" type="button"> 提交</button>
+        </div>
     </div>
 </div>
 {include file='public/footer'}
@@ -80,8 +95,8 @@
         $.ajax({
             type:"post",
             dataType:"json",
-            url:"{:url('System/security')}",
-            data:$("#form").serialize(),
+            url:"{:url('System/switchEdit')}",
+            data:$("#pay").serializeArray(),
             success:function (data){
                 if (data.code === 1){
                     toastr.success(data.msg);

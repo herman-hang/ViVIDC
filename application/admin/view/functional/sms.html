@@ -27,7 +27,17 @@
                     <label>阿里云accesskey密钥：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="accesskey_secret" value="{$sms.accesskey_secret}" placeholder="阿里云accesskey密钥" />
+                    <input type="password" class="input" name="accesskey_secret" value="{$sms.accesskey_secret}" placeholder="阿里云accesskey密钥" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>发送测试短信：</label>
+                </div>
+                <div class="field">
+                    <input type="text" id="ali_phone" name="ali_phone" class="input tips" placeholder="测试手机号码" style="width:25%; float:left;" value="" data-toggle="hover" data-place="right"/>
+                    <input type="button" class="button bg-blue margin-left" id="aliTest" value="发送测试" >
                     <div class="tips"></div>
                 </div>
             </div>
@@ -53,7 +63,17 @@
                     <label>短信宝密码：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="smsbao_pass" value="{$sms.smsbao_pass}" placeholder="短信宝密码"/>
+                    <input type="password" class="input" name="smsbao_pass" value="{$sms.smsbao_pass}" placeholder="短信宝密码"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>发送测试短信：</label>
+                </div>
+                <div class="field">
+                    <input type="text" id="smsbao_phone" name="smsbao_phone" class="input tips" placeholder="测试手机号码" style="width:25%; float:left;" value="" data-toggle="hover" data-place="right"/>
+                    <input type="button" class="button bg-blue margin-left" id="smsbaoTest" value="发送测试" >
                     <div class="tips"></div>
                 </div>
             </div>
@@ -70,6 +90,7 @@
 
 {include file='public/footer'}
 <script>
+    //表单信息提交
     $("#submit").click(function (){
         var ali = $("#ali").serializeArray();
         var smsbao = $("#smsbao").serializeArray();
@@ -78,7 +99,7 @@
         $.ajax({
             type:"post",
             dataType:"json",
-            url:"{:url('Functional/sms')}",
+            url:"{:url('Functional/smsEdit')}",
             data:data,
             success:function (data){
                 if (data.code === 1){
@@ -86,6 +107,28 @@
                     setTimeout(function (){
                         location.href = data.url;
                     },2000);
+                }else{
+                    if (data.code === 0){
+                        toastr.error(data.msg);
+                    }else{
+                        toastr.error(data.msg);
+                    }
+                }
+            }
+        });
+    });
+
+    //短信宝发送测试短信
+    $("#smsbaoTest").click(function (){
+        var smsbao = $("#smsbao").serializeArray();
+        $.ajax({
+            dataType:"json",
+            type:"post",
+            url:"{:url('Functional/testSms')}",
+            data:smsbao,
+            success:function (data){
+                if (data.code === 1){
+                    toastr.success(data.msg);
                 }else{
                     if (data.code === 0){
                         toastr.error(data.msg);

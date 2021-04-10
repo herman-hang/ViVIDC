@@ -11,10 +11,6 @@ class ComposerStaticInit11f93b0192603eb69b38f18cc6acbea0
     );
 
     public static $prefixLengthsPsr4 = array (
-        'w' => 
-        array (
-            'wycto\\login\\' => 12,
-        ),
         't' => 
         array (
             'think\\composer\\' => 15,
@@ -24,17 +20,20 @@ class ComposerStaticInit11f93b0192603eb69b38f18cc6acbea0
         array (
             'app\\' => 4,
         ),
+        'Y' => 
+        array (
+            'Yurun\\Util\\' => 11,
+            'Yurun\\PaySDK\\' => 13,
+            'Yurun\\OAuthLogin\\' => 17,
+        ),
         'P' => 
         array (
+            'Psr\\Http\\Message\\' => 17,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'wycto\\login\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/wycto/login/src',
-        ),
         'think\\composer\\' => 
         array (
             0 => __DIR__ . '/..' . '/topthink/think-installer/src',
@@ -46,6 +45,22 @@ class ComposerStaticInit11f93b0192603eb69b38f18cc6acbea0
         'app\\' => 
         array (
             0 => __DIR__ . '/../..' . '/application',
+        ),
+        'Yurun\\Util\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yurunsoft/yurun-http/src',
+        ),
+        'Yurun\\PaySDK\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yurunsoft/pay-sdk/src',
+        ),
+        'Yurun\\OAuthLogin\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yurunsoft/yurun-oauth-login/src',
+        ),
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'PHPMailer\\PHPMailer\\' => 
         array (

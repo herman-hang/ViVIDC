@@ -59,7 +59,7 @@
         $.ajax({
             type:"post",
             dataType:"json",
-            url:"{:url('System/security')}",
+            url:"{:url('System/securityEdit')}",
             data:$("#form").serialize(),
             success:function (data){
                 if (data.code === 1){

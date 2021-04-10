@@ -27,7 +27,16 @@
                     <label>微信secret：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="wx_secret" value="{$thirdparty.wx_secret}" placeholder="微信secret" />
+                    <input type="password" class="input" name="wx_secret" value="{$thirdparty.wx_secret}" placeholder="微信secret" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>微信回调地址：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="{$Request.domain}/viv.php/oauths/callback/type/weixin" disabled/>
                     <div class="tips"></div>
                 </div>
             </div>
@@ -53,7 +62,51 @@
                     <label>QQ secret：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="qq_secret" value="{$thirdparty.qq_secret}" placeholder="QQ secret"/>
+                    <input type="password" class="input" name="qq_secret" value="{$thirdparty.qq_secret}" placeholder="QQ secret"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>QQ回调地址：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="{$Request.domain}/viv.php/oauths/callback/type/qq" disabled/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 微博登录接入配置</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" action="" id="weibo">
+            <div class="form-group">
+                <div class="label">
+                    <label>微博 appid：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="weibo_appid" value="{$thirdparty.weibo_appid}" placeholder="微博 appid"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>微博 secret：</label>
+                </div>
+                <div class="field">
+                    <input type="password" class="input" name="weibo_secret" value="{$thirdparty.weibo_secret}" placeholder="微博 secret"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>微博回调地址：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="{$Request.domain}/viv.php/oauths/callback/type/sina" disabled/>
                     <div class="tips"></div>
                 </div>
             </div>
@@ -73,12 +126,13 @@
     $("#submit").click(function (){
         var wx = $("#wx").serializeArray();
         var qq = $("#qq").serializeArray();
+        var weibo = $("#weibo").serializeArray();
         //表单合并
-        data = wx.concat(qq);
+        data = wx.concat(qq).concat(weibo);
         $.ajax({
             type:"post",
             dataType:"json",
-            url:"{:url('Functional/thirdparty')}",
+            url:"{:url('Functional/thirdpartyEdit')}",
             data:data,
             success:function (data){
                 if (data.code === 1){

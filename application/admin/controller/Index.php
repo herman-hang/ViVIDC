@@ -16,10 +16,16 @@ class Index extends Base
     public function index()
     {
         //查询管理员头像
-        $info = Db::name('admin')->where('id',Session::get('Admin.id'))->field('photo')->find();
+        $info = Db::name('admin')->where('id',Session::get('Admin.id'))->field('photo,user')->find();
+        //菜单查询
+        $menu = Db::name('rule')->where(['pid'=>0,'status'=>1])->field('id,name,url,icon')->order('sort','desc')->select();
+        foreach($menu as $key => $val){
+            $submenu = Db::name('rule')->where(['pid'=>$val['id'],'status'=>1])->field('name,url')->order('sort','desc')->select();
+            $menu[$key]['submenu'] = $submenu;
+        }
         //给模板赋值
-        $this->assign(['admin'=>$info]);
-        return $this->fetch('index');
+        $this->assign(['admin'=>$info,'menu'=>$menu]);
+        return $this->fetch('index/index');
     }
 
     /**
@@ -27,7 +33,7 @@ class Index extends Base
      */
     public function desktop()
     {
-        return $this->fetch('desktop');
+        return $this->fetch('index/desktop');
     }
 
     /**

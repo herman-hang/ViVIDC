@@ -6,9 +6,12 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'wycto\\login\\' => array($vendorDir . '/wycto/login/src'),
     'think\\composer\\' => array($vendorDir . '/topthink/think-installer/src'),
     'think\\captcha\\' => array($vendorDir . '/topthink/think-captcha/src'),
     'app\\' => array($baseDir . '/application'),
+    'Yurun\\Util\\' => array($vendorDir . '/yurunsoft/yurun-http/src'),
+    'Yurun\\PaySDK\\' => array($vendorDir . '/yurunsoft/pay-sdk/src'),
+    'Yurun\\OAuthLogin\\' => array($vendorDir . '/yurunsoft/yurun-oauth-login/src'),
+    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
 );

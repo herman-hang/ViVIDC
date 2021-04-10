@@ -42,8 +42,13 @@
                         </div>
                     </div>
                 </div>
-                <div style="padding:30px;">
+                <div style="padding:20px;">
                     <input type="button" id="login" class="button button-block bg-main text-big input-big" value="登录">
+                </div>
+                <div style="text-align: center;height: 40px;">
+                    <a style="margin: 5px" href="{:url('Oauths/login',['type'=>'qq'])}" title="QQ登录"><span class="icon-qq"></span></a>
+                    <a style="margin: 5px" href="{:url('Oauths/login',['type'=>'weixin'])}" title="微信登录"><span class="icon-wechat"></span></a>
+                    <a style="margin: 5px" href="{:url('Oauths/login',['type'=>'sina'])}" title="微博登录"><span class="icon-weibo"></span></a>
                 </div>
             </div>
             </form>          
@@ -115,7 +120,7 @@
                     }
                     document.getElementById("captcha").onclick();//刷新验证码
                     document.getElementById("password").value="";//清空密码
-                    document.getElementById("code").value="";//情况验证码
+                    document.getElementById("code").value="";//清空验证码
                     $("#password").focus();//光标定位在密码输入框
                 }else{
                     if (data.code === 1){

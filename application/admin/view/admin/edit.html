@@ -21,11 +21,33 @@
                 <div class="field">
                     <!--隐藏字段-->
                     <input type="hidden" name="id" value="{$admin.id}" >
+                    {if $Think.session.Admin.id eq 1}
+                    <input type="text" class="input w50" value="{$admin.user}" id="user" name="user" size="50" placeholder="请输入管理员账号" data-validate="required:账号不能为空" />
+                    {else/}
                     <label style="line-height:33px;">
                         {$admin.user}
                     </label>
+                    {/if}
                 </div>
             </div>
+            {if $Think.session.Admin.id eq 1}
+            <div class="form-group">
+                <div class="label">
+                    <label>密码：</label>
+                </div>
+                <div class="field">
+                    <input type="password" class="input w50" id="password" name="password" size="50" placeholder="不修改则无需填写" data-validate="length#>=6:新密码不能小于6位" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>确认密码：</label>
+                </div>
+                <div class="field">
+                    <input type="password" class="input w50" name="passwords" size="50" placeholder="不修改则无需填写" data-validate="repeat#password:两次输入的密码不一致" />
+                </div>
+            </div>
+            {/if}
             <div class="form-group">
                 <div class="label">
                     <label>头像：</label>
@@ -40,7 +62,7 @@
                     <label>真实姓名：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input w50" id="name" name="name" size="50" value="{$admin.name}" placeholder="请输入管理员真实姓名" data-validate="required:管理员真实姓名必须填写" />
+                    <input type="text" class="input w50" id="name" name="name" size="50" value="{$admin.name}" placeholder="请输入管理员真实姓名" data-validate="required:真实姓名不能为空" />
                 </div>
             </div>
             <div class="form-group">
@@ -70,7 +92,7 @@
                     <label>年龄：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input w50" id="age" name="age" value="{$admin.age}" size="50" placeholder="请输入管理员年龄" data-validate="required:管理员年龄必须填写" />
+                    <input type="text" class="input w50" id="age" name="age" value="{$admin.age}" size="50" placeholder="请输入管理员年龄" data-validate="required:年龄不能为空" />
                 </div>
             </div>
             <div class="form-group">
@@ -78,7 +100,7 @@
                     <label>地区：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input w50" id="region" name="region" size="50" value="{$admin.region}" placeholder="请输入管理员所在地址" data-validate="required:可以为空，建议填写" />
+                    <input type="text" class="input w50" id="region" name="region" size="50" value="{$admin.region}" placeholder="请输入管理员所在地址" />
                 </div>
             </div>
             <div class="form-group">
@@ -86,7 +108,7 @@
                     <label>手机号码：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input w50" id="mobile" name="mobile" size="50" value="{$admin.mobile}" placeholder="请输入管理员手机号码" data-validate="required:管理员手机号码必须填写" />
+                    <input type="text" class="input w50" id="mobile" name="mobile" size="50" value="{$admin.mobile}" placeholder="请输入管理员手机号码" data-validate="required:手机号码不能为空" />
                 </div>
             </div>
             <div class="form-group">
@@ -94,7 +116,7 @@
                     <label>邮箱：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input w50" id="email" name="email" size="50" value="{$admin.email}" placeholder="请输入管理员邮箱" data-validate="required:可以为空，建议填写" />
+                    <input type="text" class="input w50" id="email" name="email" size="50" value="{$admin.email}" placeholder="请输入管理员邮箱" />
                 </div>
             </div>
             <div class="form-group">
@@ -102,7 +124,7 @@
                     <label>简介：</label>
                 </div>
                 <div class="field">
-                    <textarea name="introduction" class="input w50" size="50" placeholder="请输入管理员简介" data-validate="required:可以为空，建议填写">{$admin.introduction}</textarea>
+                    <textarea name="introduction" class="input w50" size="50" placeholder="请输入管理员简介">{$admin.introduction}</textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -128,7 +150,7 @@
                 <div class="field">
                     <select name="group" style="padding:5px 15px; border:1px solid #ddd;">
                         {foreach $group as $val}
-                        <option value="{$val.id}" {if condition="$admin.group_id eq $val.id"}selected{/if}>{$val.name}</option>
+                        <option value="{$val.id}" {if condition="$admin.group_id eq $val.id"} selected {/if}>{$val.name}</option>
                         {/foreach}
                     </select>
                 </div>

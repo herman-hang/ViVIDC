@@ -66,6 +66,29 @@ use PHPMailer\PHPMailer\SMTP;
             echo '邮件发送失败: ', $mail->ErrorInfo;
         }
     }
+
+    /**
+     * 短信宝短信发送
+     * $user短信宝账号, $passMD5加密的密码, $content短信内容, $phone手机号码
+     */
+    function sendSms($user,$pass,$content,$phone)
+    {
+        $statusStr = array(
+            "0" => "短信发送成功",
+            "-1" => "参数不全",
+            "-2" => "服务器空间不支持,请确认支持curl或者fsocket，联系您的空间商解决或者更换空间！",
+            "30" => "密码错误",
+            "40" => "账号不存在",
+            "41" => "余额不足",
+            "42" => "帐户已过期",
+            "43" => "IP地址限制",
+            "50" => "内容含有敏感词"
+        );
+        $smsapi = "http://www.smsbao.com/"; //短信网关
+        $sendurl = $smsapi."sms?u=".$user."&p=".$pass."&m=".$phone."&c=".urlencode($content);
+        $result =file_get_contents($sendurl) ;
+        return $statusStr[$result];
+    }
     /**
      * 循环删除目录和文件
      * @param string $dir_name
@@ -95,26 +118,13 @@ use PHPMailer\PHPMailer\SMTP;
     }
 
     /**
-     * 获取文件内容
-     * @param $url 要获取的url
-     * @return res 成功返回内容 失败返回false
+     * 订单号生成
+     * @return string
      */
-    function get_file($url)
+    function trade_no()
     {
-        if (trim($url) == '') {
-            return false;
-        }
-        $opts = array(
-            'http'=>array(
-                'method'=>"GET",
-                'timeout'=>3,//单位秒
-            )
-        );
-        $cnt=0;
-        while($cnt<3 && ($res=@file_get_contents($url, false, stream_context_create($opts)))===FALSE) $cnt++;
-        if ($res === false) {
-            return false;
-        } else {
-            return $res;
-        }
+        list($usec, $sec) = explode(" ", microtime());
+        $usec = substr(str_replace('0.', '', $usec), 0 ,4);
+        $str  = rand(10,99);
+        return date("YmdHis").$usec.$str;
     }

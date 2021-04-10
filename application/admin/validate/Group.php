@@ -11,26 +11,24 @@ class Group extends Validate
     //规则
     protected $rule = [
         'name'          => 'require',
-        'status'        => 'require',
         'rules'         =>  'require',
     ];
 
     //自定义提示信息
     protected $message = [
         'name.require'      =>  '权限组名称不能为空！',
-        'status.require'    =>  '状态不能为空！',
         'rules.require'     =>  '选择权限不能为空！',
     ];
 
     //add场景验证
     public function sceneAdd()
     {
-        return $this->only(['name.status,rules']);
+        return $this->only(['name,rules']);
     }
 
     //edit场景验证
     public function sceneEdit()
     {
-        return $this->only(['name.status,rules']);
+        return $this->only(['name,rules']);
     }
 }

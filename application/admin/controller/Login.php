@@ -57,6 +57,23 @@ class Login extends Base
                         if ($admin['status'] == 1){
                             //判断密码是否相等
                             if (password_verify($info['password'],$admin['password']) == true){
+                                //判断openid的session是否存在，存在则进行判定
+                                if (Session::has('Oauth')){
+                                    //去session的值
+                                    $oauth = Session::get('Oauth');
+                                    if ($oauth['type'] == "qq"){
+                                        //判断QQ登录
+                                        $admin -> save(['qq_openid'=>$oauth['openid']]);
+                                    }elseif($oauth['type'] == "weixin"){
+                                        //判断微信登录
+                                        $admin -> save(['weixin_openid'=>$oauth['openid']]);
+                                    }elseif($oauth['type'] == "sina"){
+                                        //判断微博登录
+                                        $admin -> save(['weibo_openid'=>$oauth['openid']]);
+                                    }
+                                    //删除Oauth的session
+                                    Session::delete('Oauth');
+                                }
                                 // 设置Session
                                 Session::set('Admin',$Admin);
                                 //登录总次数自增1
@@ -103,7 +120,24 @@ class Login extends Base
                             }else{
                                 if ($admin['status'] == 1){
                                     if (password_verify($info['password'],$admin['password']) == true){
-                                        // 设置Cookie 有效期为 900秒
+                                        //判断openid的session是否存在，存在则进行判定
+                                        if (Session::has('Oauth')){
+                                            //去session的值
+                                            $oauth = Session::get('Oauth');
+                                            if ($oauth['type'] == "qq"){
+                                                //判断QQ登录
+                                                $admin -> save(['qq_openid'=>$oauth['openid']]);
+                                            }elseif($oauth['type'] == "weixin"){
+                                                //判断微信登录
+                                                $admin -> save(['weixin_openid'=>$oauth['openid']]);
+                                            }elseif($oauth['type'] == "sina"){
+                                                //判断微博登录
+                                                $admin -> save(['weibo_openid'=>$oauth['openid']]);
+                                            }
+                                            //删除Oauth的session
+                                            Session::delete('Oauth');
+                                        }
+                                        // 设置session
                                         Session::set('Admin',$Admin);
                                         //登录总次数自增1
                                         $admin->setInc('login_sum');
@@ -157,7 +191,24 @@ class Login extends Base
                                         $this->error("登录错误过多，请{$BAN}分钟后再试！");
                                     }else{
                                         if (password_verify($info['password'],$admin['password']) == true){
-                                            // 设置Cookie 有效期为 900秒
+                                            //判断openid的session是否存在，存在则进行判定
+                                            if (Session::has('Oauth')){
+                                                //去session的值
+                                                $oauth = Session::get('Oauth');
+                                                if ($oauth['type'] == "qq"){
+                                                    //判断QQ登录
+                                                    $admin -> save(['qq_openid'=>$oauth['openid']]);
+                                                }elseif($oauth['type'] == "weixin"){
+                                                    //判断微信登录
+                                                    $admin -> save(['weixin_openid'=>$oauth['openid']]);
+                                                }elseif($oauth['type'] == "sina"){
+                                                    //判断微博登录
+                                                    $admin -> save(['weibo_openid'=>$oauth['openid']]);
+                                                }
+                                                //删除Oauth的session
+                                                Session::delete('Oauth');
+                                            }
+                                            // 设置session
                                             Session::set('Admin',$Admin);
                                             //登录总次数自增1
                                             $admin->setInc('login_sum');
@@ -202,7 +253,7 @@ class Login extends Base
                 }
             }
         }
-        return $this->fetch('login');
+        return $this->fetch('login/login');
     }
 
 }
