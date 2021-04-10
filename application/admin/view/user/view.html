@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>用户查看</title>
+    {include file='public/style'}
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-key"></span> 用户查看</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" action="" id="form">
+            <div class="form-group">
+                <div class="label">
+                    <label>用户名：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {$user.user}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>头像：</label>
+                </div>
+                <div class="field">
+                    {if !empty($user.photo)}
+                    <img src="{$user.photo}" class="radius-circle rotate-hover" height="50" alt="头像">
+                    {else/}
+                    <label style="line-height:33px;">
+                        无
+                    </label>
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>真实姓名：</label>
+                </div>
+                <div class="field">
+                    {if !empty($user.name)}
+                    <label style="line-height:33px;">{$user.name}</label>
+                    {else/}
+                    <label style="line-height:33px;color: red;">未实名</label>
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>身份证号码：</label>
+                </div>
+                <div class="field">
+                    {if !empty($user.number)}
+                    <label style="line-height:33px;">{$user.number}</label>
+                    {else/}
+                    <label style="line-height:33px;color: red;">未填写</label>
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>性别：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {if $user.sex eq 0}女
+                        {elseif $user.sex eq 1}男
+                        {else/}保密
+                        {/if}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>年龄：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {$user.age}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>地区：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {$user.region}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>手机号码：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {$user.mobile}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>邮箱：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {$user.email}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>QQ：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {$user.qq}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>简介：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {$user.introduction}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>状态：</label>
+                </div>
+                <div class="field">
+                    {if $user.status eq 0}
+                    <label style="line-height:33px;color: red">已停用</label>
+                    {else $user.status eq 1}
+                    <label style="line-height:33px;color:#2c7">已启用</label>
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>创建时间：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {:date("Y-m-d H:i:s",$user.create_time)}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>余额：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {$user.money}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>积分：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {$user.integral}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>总消费：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {$user.total}
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include file='public/footer'}
+<script src="/static/layui/layui.js"></script>
+
+</body>
+</html>
