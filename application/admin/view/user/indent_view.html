@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>订单详情</title>
+    {include file='public/style'}
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-key"></span> 订单详情</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" action="" id="form">
+            <div class="form-group">
+                <div class="label">
+                    <label>订单号：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {$log.indent}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>用户ID：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {$log.uid}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>产品ID：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {$log.product_id}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>产品类型：</label>
+                </div>
+                <div class="field">
+                    {if $log.product_type eq 0}
+                    <label style="line-height:33px;">虚拟主机</label>
+                    {elseif $log.product_type eq 1}
+                    <label style="line-height:33px;">云服务器</label>
+                    {elseif $log.product_type eq 2}
+                    <label style="line-height:33px;">CDN</label>
+                    {elseif $log.product_type eq 3}
+                    <label style="line-height:33px;">物理机</label>
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>购买类型：</label>
+                </div>
+                <div class="field">
+                    {if $log.buy_type eq 0}
+                    <label style="line-height:33px;">购买</label>
+                    {else /}
+                    <label style="line-height:33px;">续费</label>
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>支付方式：</label>
+                </div>
+                <div class="field">
+                    {if $log.pay_type eq 0}
+                    <label style="line-height:33px;">微信支付</label>
+                    {elseif $log.pay_type eq 1}
+                    <label style="line-height:33px;">QQ支付</label>
+                    {elseif $log.pay_type eq 2}
+                    <label style="line-height:33px;">支付宝支付</label>
+                    {elseif $log.pay_type eq 3}
+                    <label style="line-height:33px;">余额支付</label>
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>产品价格：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {$log.money}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>购买IP地址：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {$log.buy_ip}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>创建时间：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {:date("Y-m-d H:i:s",$log.create_time)}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>订单状态：</label>
+                </div>
+                <div class="field">
+                    {if $log.status eq 0}
+                    <label style="line-height:33px;color: red">未付款</label>
+                    {else $log.status eq 1}
+                    <label style="line-height:33px;color:#2c7">已付款</label>
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>订单说明：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+                        {$log.introduction}
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include file='public/footer'}
+<script src="/static/layui/layui.js"></script>
+
+</body>
+</html>

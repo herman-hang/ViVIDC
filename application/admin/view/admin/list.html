@@ -19,6 +19,10 @@
           <button type="button" class="button border-red" id="DelSelect"><span class="icon-trash-o"></span> 批量删除</button>
           <a class="button border-main icon-plus-square-o" href="{:url('Admin/add')}"> 添加管理员</a>
         </li>
+        <li>
+          <input type="text" placeholder="请输入搜索关键字" id="keywords" name="keywords" class="input" style="width:250px; line-height:17px;display:inline-block">
+          <a href="javascript:void(0)" class="button border-main icon-search" onclick="so()"> 搜索</a>
+        </li>
       </ul>
     </div>
     <table class="table table-hover text-center">
@@ -178,5 +182,14 @@
     }
   });
 
+  //搜索
+  function so(){
+    var keywords = $("#keywords").val();
+    if (keywords === ""){
+      toastr.error("请输入搜索关键字");
+    }else{
+      location.href = "{:url('Admin/search')}?keywords="+keywords;
+    }
+  }
 </script>
 </body></html>

@@ -128,3 +128,35 @@ use PHPMailer\PHPMailer\SMTP;
         $str  = rand(10,99);
         return date("YmdHis").$usec.$str;
     }
+
+    /**
+     * 生成6位随机验证码
+     * $type 验证码类型，1为邮件验证码，2为短信验证码
+     * 类型正确返回验证码,否则false
+     * */
+    function codeStr($type = "")
+    {
+        //邮件验证码
+        if ($type == 1){
+            $arr=array_merge(range('a','z'),range('A','Z'),range('0','9'));
+            shuffle($arr);
+            $arr=array_flip($arr);
+            $arr=array_rand($arr,6);
+            $res='';
+            foreach ($arr as $v){
+                $res.=$v;
+            }
+            return $res;
+        }elseif($type == 2){//短信验证码
+            $arr=array_merge(range('0','9'));
+            shuffle($arr);
+            $arr=array_flip($arr);
+            $arr=array_rand($arr,6);
+            $res='';
+            foreach ($arr as $v){
+                $res.=$v;
+            }
+            return $res;
+        }
+        return false;
+    }

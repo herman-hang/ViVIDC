@@ -30,8 +30,11 @@ class Base extends Controller
         'admin/index/clear',//清除缓存
         'admin/index/logout',//退出登录
         'admin/base/log',//记录日志
-        'admin/base/codestr',//随机生成6为验证码
         'admin/user/search',//用户搜索
+        'admin/user/indentso',//订单搜索
+        'admin/user/payso',//充值记录搜索
+        'admin/admin/search',//管理员搜索
+        'admin/group/search',//权限搜索
     ];
     /**
      * 初始化
@@ -206,37 +209,4 @@ class Base extends Controller
         //执行添加并过滤非数据表字段
         $log->allowField(true)->save(['type'=>$type,'admin_id'=>$id,'content'=>$content,'ip'=>$ip]);
     }
-
-    /**
-     * 生成6位随机验证码
-     * $type 验证码类型，1为邮件验证码，2为短信验证码
-     * 类型正确返回验证码,否则false
-     * */
-    public function codeStr($type = "")
-    {
-        //邮件验证码
-        if ($type == 1){
-            $arr=array_merge(range('a','z'),range('A','Z'),range('0','9'));
-            shuffle($arr);
-            $arr=array_flip($arr);
-            $arr=array_rand($arr,6);
-            $res='';
-            foreach ($arr as $v){
-                $res.=$v;
-            }
-            return $res;
-        }elseif($type == 2){//短信验证码
-            $arr=array_merge(range('0','9'));
-            shuffle($arr);
-            $arr=array_flip($arr);
-            $arr=array_rand($arr,6);
-            $res='';
-            foreach ($arr as $v){
-                $res.=$v;
-            }
-            return $res;
-        }
-        return false;
-    }
-
 }

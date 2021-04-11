@@ -41,7 +41,7 @@
             {volist name="user" id="val"}
             <tr>
                 <td><input type="checkbox" name="id[]" value="{$val.id}" />{$val.id}</td>
-                <td> <a title="点击查看" href="{:url('User/view',['id'=>$val.id])}">{$val.user}</a></td>
+                <td> <a title="点击查看" href="{:url('User/userView',['id'=>$val.id])}">{$val.user}</a></td>
                 {if !empty($val.name)}
                 <td>{$val.name}</td>
                 {else/}

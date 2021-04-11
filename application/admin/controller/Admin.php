@@ -172,4 +172,27 @@ class Admin extends Base
         }
     }
 
+    /**
+     * 管理员搜索列表
+     */
+    public function search()
+    {
+        //获取当前管理员ID
+        $id = Session::get('Admin.id');
+        //接收搜索关键词
+        $keywords = Request::param('keywords');
+        //如果当前管理员为超级管理员，则输出全部管理员信息
+        if ($id == 1){
+            //查询所有管理信息
+            $info = Db::name('admin')->where('id|user|name|mobile|email','like','%'.$keywords.'%')->order('create_time','desc')->paginate(10,false,['query'=>request()->param()]);
+        }else{
+            //查询当前管理员的信息
+            $info = Db::name('admin')->where('id',$id)->where('id|user|name|mobile|email','like','%'.$keywords.'%')->order('create_time','desc')->paginate(10,false,['query'=>request()->param()]);
+        }
+        //给模板赋值
+        $this->assign(['admin'=>$info]);
+        //渲染模板
+        return $this->fetch('admin/list');
+    }
+
 }

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>充值记录</title>
+    {include file='public/style'}
+</head>
+<body>
+<form method="post" action="">
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong class="icon-reorder"> 充值记录</strong></div>
+        <div class="padding border-bottom">
+
+            <ul class="search">
+                <li>
+                    <input type="text" placeholder="请输入搜索订单号" id="keywords" name="keywords" class="input" style="width:250px; line-height:17px;display:inline-block">
+                    <a href="javascript:void(0)" class="button border-main icon-search" onclick="so()"> 搜索</a>
+                </li>
+            </ul>
+        </div>
+        <table class="table table-hover text-center">
+            <tr>
+                <th width="120">ID</th>
+                <th>订单号</th>
+                <th>用户ID</th>
+                <th>金额</th>
+                <th>充值方式</th>
+                <th width="200">创建时间</th>
+                <th>充值IP地址</th>
+            </tr>
+            {volist name="log" id="val"}
+            <tr>
+                <td>{$val.id}</td>
+                <td>{$val.indent}</td>
+                <td>{$val.uid}</td>
+                <td>{$val.money}</td>
+                {if $val.pay_type eq 0}
+                <td>微信支付</td>
+                {elseif $val.pay_type eq 1}
+                <td>QQ支付</td>
+                {elseif $val.pay_type eq 2}
+                <td>支付宝支付</td>
+                {elseif $val.pay_type eq 3}
+                <td>手动充值</td>
+                {/if}
+                <td>{:date("Y-m-d H:i:s",$val.create_time)}</td>
+                <td>{$val.pay_ip}</td>
+            </tr>
+            {/volist}
+            <tr>
+                <td colspan="8">
+                    {$log|raw}
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+{include file='public/footer'}
+<script>
+    //搜索
+    function so(){
+        var keywords = $("#keywords").val();
+        if (keywords === ""){
+            toastr.error("请输入搜索关键字");
+        }else{
+            location.href = "{:url('User/paySo')}?keywords="+keywords;
+        }
+    }
+</script>
+</body></html>

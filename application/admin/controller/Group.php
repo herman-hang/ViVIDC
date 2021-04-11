@@ -185,4 +185,35 @@ class Group extends Base
         }
     }
 
+    /**
+     * 权限组搜索列表
+     */
+    public function search()
+    {
+        //获取当前管理员ID
+        $id = Session::get('Admin.id');
+        //接收搜索关键词
+        $keywords = Request::param('keywords');
+        //如果当前为超级管理员，则输出全部权限组信息
+        if ($id == 1){
+            //查询所有权限组信息
+            $info = GroupModel::where('id|name|instruction','like','%'.$keywords.'%')->order('create_time','desc')->paginate(10,false,['query'=>request()->param()]);
+        }else{
+            //只查询当前管理员权限组的权限信息
+            $gid = Db::name('group_access')->where('uid',$id)->field('group_id')->find();
+            $info = GroupModel::where('id',$gid['group_id'])->where('id|name|instruction','like','%'.$keywords.'%')->order('create_time','desc')->paginate(10,false,['query'=>request()->param()]);
+        }
+        foreach ($info as $key=>$val){
+            //关联查询
+            $user = Db::view('group_access','uid,group_id')
+                ->view('Admin','id,user','group_access.uid=admin.id')
+                ->where('group_id',$val['id'])
+                ->select();
+            $info[$key]['user'] = $user;
+        }
+        //给模板赋值
+        $this->assign(['group'=>$info]);
+        return $this->fetch('group/list');
+    }
+
 }

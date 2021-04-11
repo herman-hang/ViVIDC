@@ -59,7 +59,7 @@ class User extends Base
     /**
      * 用户查看
      */
-    public function view()
+    public function userView()
     {
         //接收id
         $id = Request::param('id');
@@ -67,7 +67,7 @@ class User extends Base
         $info = Db::name('user')->where('id',$id)->find();
         //给模板赋值
         $this->assign(['user'=>$info]);
-        return $this->fetch('user/view');
+        return $this->fetch('user/user_view');
     }
 
     /**
@@ -160,6 +160,7 @@ class User extends Base
             if ($res){
                 //记录日志
                 $this->log("给用户ID{$data['id']}充值了{$data['money']}元！");
+                Db::name('user_paylog')->insert(['uid'=>$data['id'],'indent'=>trade_no(),'pay_type'=>3,'money'=>$data['money'],'pay_ip'=>Request::ip(),'create_time'=>time()]);
                 $this->success("充值成功！");
             }else{
                 //记录日志
@@ -181,5 +182,67 @@ class User extends Base
         //给模板赋值
         $this->assign(['user'=>$info]);
         return $this->fetch('user/list');
+    }
+
+    /**
+     * 订单记录
+     */
+    public function buyLog()
+    {
+        //查询所有订单
+        $info = Db::name('user_buylog')->order('create_time','desc')->paginate(10);
+        $this->assign(['log'=>$info]);
+        return $this->fetch('user/buylog');
+    }
+
+    /**
+     * 订单详情
+     */
+    public function indentView()
+    {
+        $id = Request::param('id');
+        //查询当前订单的所有信息
+        $info = Db::name('user_buylog')->where('id',$id)->find();
+        $this->assign(['log'=>$info]);
+        return $this->fetch('user/indent_view');
+    }
+
+    /**
+     * 订单搜索
+     */
+    public function indentSo()
+    {
+        //接收搜索关键词
+        $keywords = Request::param('keywords');
+        //模糊查询
+        $info = Db::name('user_buylog')->where('indent','like','%'.$keywords.'%')->order('create_time','desc')->paginate(10,false,['query'=>request()->param()]);
+        //给模板赋值
+        $this->assign(['log'=>$info]);
+        return $this->fetch('user/buylog');
+    }
+
+    /**
+     * 充值记录
+     */
+    public function payLog()
+    {
+        //查询所有订单
+        $info = Db::name('user_paylog')->order('create_time','desc')->paginate(10);
+        $this->assign(['log'=>$info]);
+        return $this->fetch('user/paylog');
+    }
+
+    /**
+     * 充值记录搜索
+     */
+    public function paySo()
+    {
+        //接收搜索关键词
+        $keywords = Request::param('keywords');
+        //模糊查询
+        $info = Db::name('user_paylog')->where('indent','like','%'.$keywords.'%')->order('create_time','desc')->paginate(10,false,['query'=>request()->param()]);
+        //给模板赋值
+        $this->assign(['log'=>$info]);
+        return $this->fetch('user/paylog');
     }
 }

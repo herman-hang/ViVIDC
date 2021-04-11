@@ -64,8 +64,12 @@ class Functional extends Base
         if (request()->isAjax()){
             //接收前台的传过来的值
             $data = Request::param();
+            //查询短信宝密码
+            $info = Db::name('sms')->where('id',1)->field('smsbao_pass')->find();
             //对密码进行MD5算法加密
-            $data['smsbao_pass'] = md5($data['smsbao_pass']);
+            if ($data['smsbao_pass'] !== $info['smsbao_pass']){
+                $data['smsbao_pass'] = md5($data['smsbao_pass']);
+            }
             //当存在数据时执行更新数据
             $res = Db::name('sms')->strict(false)->where('id',1)->update($data);
             //判断返回的值是否为true
@@ -85,10 +89,13 @@ class Functional extends Base
         if (request()->isAjax()){
             //接收数据
             $data = Request::param();
-            //对密码进行MD5算法加密
-            $data['smsbao_pass'] = md5($data['smsbao_pass']);
+            //利用正则表达式检测当前的密码是否为MD5字符串
+            if (!preg_match("/^[a-z0-9]{32}$/", $data['smsbao_pass'])){
+                //对密码进行MD5算法加密
+                $data['smsbao_pass'] = md5($data['smsbao_pass']);
+            }
             //调用随机验证码方法
-            $code = $this->codeStr(2);
+            $code = codeStr(2);
             //验证码有效时间(单位：分钟)
             $time = 5;
             //自定义测试短信内容
