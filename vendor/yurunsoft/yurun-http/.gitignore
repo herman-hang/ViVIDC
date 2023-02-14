@@ -1,0 +1,12 @@
+.idea
+/composer.lock
+/tests/server/*.pid
+*.log
+/tests/server/WebSocket/.runtime
+logs
+vendor
+*.pid
+tests/unit/HttpRequestTest/download*
+*.cache
+/.vscode
+/tests/unit/HttpRequestTest/cookie.json

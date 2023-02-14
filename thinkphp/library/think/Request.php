@@ -684,7 +684,7 @@ class Request
                 unset($_GET[$this->config['var_pathinfo']]);
                 unset($this->get[$this->config['var_pathinfo']]);
             } elseif ($this->isCli()) {
-                // CLI模式下 Index.php module/controller/action/params/...
+                // CLI模式下 index.php module/controller/action/params/...
                 $pathinfo = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : '';
             } elseif ('cli-server' == PHP_SAPI) {
                 $pathinfo = strpos($this->server('REQUEST_URI'), '?') ? strstr($this->server('REQUEST_URI'), '?', true) : $this->server('REQUEST_URI');

@@ -28,6 +28,7 @@ class ComposerStaticInit11f93b0192603eb69b38f18cc6acbea0
         ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
@@ -58,6 +59,10 @@ class ComposerStaticInit11f93b0192603eb69b38f18cc6acbea0
         array (
             0 => __DIR__ . '/..' . '/yurunsoft/yurun-oauth-login/src',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/src',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
@@ -68,11 +73,16 @@ class ComposerStaticInit11f93b0192603eb69b38f18cc6acbea0
         ),
     );
 
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit11f93b0192603eb69b38f18cc6acbea0::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit11f93b0192603eb69b38f18cc6acbea0::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit11f93b0192603eb69b38f18cc6acbea0::$classMap;
 
         }, null, ClassLoader::class);
     }

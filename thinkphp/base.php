@@ -41,7 +41,7 @@ Loader::addClassAlias([
     'Facade'   => Facade::class,
     'Hook'     => facade\Hook::class,
     'Lang'     => facade\Lang::class,
-    'AdminLog'      => facade\Log::class,
+    'Log'      => facade\Log::class,
     'Request'  => facade\Request::class,
     'Response' => facade\Response::class,
     'Route'    => facade\Route::class,

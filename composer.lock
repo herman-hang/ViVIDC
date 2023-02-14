@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "phpmailer/phpmailer",
-            "version": "v6.5.0",
+            "version": "v6.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "a5b5c43e50b7fba655f793ad27303cd74c57363c"
+                "reference": "49cd7ea3d2563f028d7811f06864a53b1f15ff55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/a5b5c43e50b7fba655f793ad27303cd74c57363c",
-                "reference": "a5b5c43e50b7fba655f793ad27303cd74c57363c",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/49cd7ea3d2563f028d7811f06864a53b1f15ff55",
+                "reference": "49cd7ea3d2563f028d7811f06864a53b1f15ff55",
                 "shasum": ""
             },
             "require": {
@@ -27,20 +27,24 @@
                 "php": ">=5.5.0"
             },
             "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
-                "doctrine/annotations": "^1.2",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+                "doctrine/annotations": "^1.2.6 || ^1.13.3",
+                "php-parallel-lint/php-console-highlighter": "^1.0.0",
+                "php-parallel-lint/php-parallel-lint": "^1.3.2",
                 "phpcompatibility/php-compatibility": "^9.3.5",
                 "roave/security-advisories": "dev-latest",
-                "squizlabs/php_codesniffer": "^3.5.6",
-                "yoast/phpunit-polyfills": "^0.2.0"
+                "squizlabs/php_codesniffer": "^3.7.1",
+                "yoast/phpunit-polyfills": "^1.0.4"
             },
             "suggest": {
                 "ext-mbstring": "Needed to send email in multibyte encoding charset or decode encoded addresses",
+                "ext-openssl": "Needed for secure SMTP sending and DKIM signing",
+                "greew/oauth2-azure-provider": "Needed for Microsoft Azure XOAUTH2 authentication",
                 "hayageek/oauth2-yahoo": "Needed for Yahoo XOAUTH2 authentication",
                 "league/oauth2-google": "Needed for Google XOAUTH2 authentication",
                 "psr/log": "For optional PSR-3 debug logging",
-                "stevenmaguire/oauth2-microsoft": "Needed for Microsoft XOAUTH2 authentication",
-                "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)"
+                "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)",
+                "thenetworg/oauth2-azure": "Needed for Microsoft XOAUTH2 authentication"
             },
             "type": "library",
             "autoload": {
@@ -72,7 +76,7 @@
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
             "support": {
                 "issues": "https://github.com/PHPMailer/PHPMailer/issues",
-                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.5.0"
+                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.7.1"
             },
             "funding": [
                 {
@@ -80,7 +84,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-06-16T14:33:43+00:00"
+            "time": "2022-12-08T13:30:06+00:00"
         },
         {
             "name": "psr/http-message",
@@ -130,7 +134,60 @@
                 "request",
                 "response"
             ],
+            "support": {
+                "source": "https://github.com/php-fig/http-message/tree/master"
+            },
             "time": "2016-08-06T14:39:51+00:00"
+        },
+        {
+            "name": "psr/log",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/fe5ea303b0887d5caefd3d431c3e61ad47037001",
+                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Log\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/log/tree/3.0.0"
+            },
+            "time": "2021-07-14T16:46:02+00:00"
         },
         {
             "name": "topthink/framework",
@@ -206,12 +263,12 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "think\\captcha\\": "src/"
-                },
                 "files": [
                     "src/helper.php"
-                ]
+                ],
+                "psr-4": {
+                    "think\\captcha\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -224,6 +281,10 @@
                 }
             ],
             "description": "captcha package for thinkphp5",
+            "support": {
+                "issues": "https://github.com/top-think/think-captcha/issues",
+                "source": "https://github.com/top-think/think-captcha/tree/2.0"
+            },
             "time": "2017-12-31T16:37:49+00:00"
         },
         {
@@ -273,22 +334,28 @@
         },
         {
             "name": "yurunsoft/pay-sdk",
-            "version": "v3.0.5",
+            "version": "v3.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yurunsoft/PaySDK.git",
-                "reference": "a7b33022f0078a08aec7028ef56de5b52fc3f0f3"
+                "reference": "c423f62ba9d0bbbc545d1d1bcd4bc45563e83289"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yurunsoft/PaySDK/zipball/a7b33022f0078a08aec7028ef56de5b52fc3f0f3",
-                "reference": "a7b33022f0078a08aec7028ef56de5b52fc3f0f3",
+                "url": "https://api.github.com/repos/Yurunsoft/PaySDK/zipball/c423f62ba9d0bbbc545d1d1bcd4bc45563e83289",
+                "reference": "c423f62ba9d0bbbc545d1d1bcd4bc45563e83289",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5",
                 "yurunsoft/yurun-http": "~4.0"
             },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "2.18.3"
+            },
+            "bin": [
+                "src/Weixin/Tool/CertificateDownloader.php"
+            ],
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -300,27 +367,33 @@
                 "MIT"
             ],
             "description": "PHP 集成支付 SDK ，集成了支付宝、微信支付的支付接口和其它相关接口的操作。",
-            "time": "2021-03-16T11:38:11+00:00"
+            "support": {
+                "issues": "https://github.com/Yurunsoft/PaySDK/issues",
+                "source": "https://github.com/Yurunsoft/PaySDK/tree/v3.1.5"
+            },
+            "time": "2022-07-08T01:05:11+00:00"
         },
         {
             "name": "yurunsoft/yurun-http",
-            "version": "v4.3.6",
+            "version": "v4.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yurunsoft/YurunHttp.git",
-                "reference": "5b4b3d58cc6492be8e769f4d307b6ef331bc6ac1"
+                "reference": "da976f460a752449de57cb6eb701f754cce2db1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yurunsoft/YurunHttp/zipball/5b4b3d58cc6492be8e769f4d307b6ef331bc6ac1",
-                "reference": "5b4b3d58cc6492be8e769f4d307b6ef331bc6ac1",
+                "url": "https://api.github.com/repos/Yurunsoft/YurunHttp/zipball/da976f460a752449de57cb6eb701f754cce2db1b",
+                "reference": "da976f460a752449de57cb6eb701f754cce2db1b",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5.0",
-                "psr/http-message": "~1.0"
+                "psr/http-message": "~1.0",
+                "psr/log": "~1.0|~2.0|~3.0"
             },
             "require-dev": {
+                "monolog/monolog": "*",
                 "phpunit/phpunit": ">=4",
                 "swoole/ide-helper": "^4.5",
                 "workerman/workerman": "^4.0"
@@ -336,25 +409,32 @@
                 "MIT"
             ],
             "description": "YurunHttp 是开源的 PHP HTTP 类库，支持链式操作，简单易用。支持 Curl、Swoole，支持 Http、Http2、WebSocket！",
-            "time": "2021-03-10T02:59:57+00:00"
+            "support": {
+                "issues": "https://github.com/Yurunsoft/YurunHttp/issues",
+                "source": "https://github.com/Yurunsoft/YurunHttp/tree/v4.4.1"
+            },
+            "time": "2022-12-23T05:20:14+00:00"
         },
         {
             "name": "yurunsoft/yurun-oauth-login",
-            "version": "v3.0.1",
+            "version": "v3.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yurunsoft/YurunOAuthLogin.git",
-                "reference": "930209404a718e7ddc6ac61283ea373a942d2a8d"
+                "reference": "3f67cc3ead9e14963fd0a40efe066530fac60746"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yurunsoft/YurunOAuthLogin/zipball/930209404a718e7ddc6ac61283ea373a942d2a8d",
-                "reference": "930209404a718e7ddc6ac61283ea373a942d2a8d",
+                "url": "https://api.github.com/repos/Yurunsoft/YurunOAuthLogin/zipball/3f67cc3ead9e14963fd0a40efe066530fac60746",
+                "reference": "3f67cc3ead9e14963fd0a40efe066530fac60746",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1",
+                "php": ">=5.5",
                 "yurunsoft/yurun-http": "~4.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "2.18.3"
             },
             "type": "library",
             "autoload": {
@@ -367,7 +447,11 @@
                 "MIT"
             ],
             "description": "YurunOAuthLogin是一个PHP 第三方登录授权 SDK，集成了QQ、微信、微博、Github等常用接口。",
-            "time": "2020-05-28T06:36:49+00:00"
+            "support": {
+                "issues": "https://github.com/Yurunsoft/YurunOAuthLogin/issues",
+                "source": "https://github.com/Yurunsoft/YurunOAuthLogin/tree/v3.0.6"
+            },
+            "time": "2021-12-07T05:56:44+00:00"
         }
     ],
     "packages-dev": [],

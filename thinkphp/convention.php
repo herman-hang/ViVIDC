@@ -307,8 +307,7 @@ return [
 
     //分页配置
     'paginate'   => [
-        /*'type'      => 'bootstrap',*/
-        'type'      => 'page\Page',//分页类
+        'type'      => 'bootstrap',
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
